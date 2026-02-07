@@ -4,6 +4,6 @@
 
 const API_BASE_URL = import.meta.env.PROD
     ? 'https://smartportfolio-1n1t.onrender.com'
-    : 'http://localhost:3000';
+    : ''; // Empty string lets Vite proxy handle it locally
 
 export default API_BASE_URL;

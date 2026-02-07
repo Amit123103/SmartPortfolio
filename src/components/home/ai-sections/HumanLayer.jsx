@@ -20,7 +20,12 @@ const HumanLayer = () => {
 
                     <motion.h1
                         className={styles.cinematic}
-                        style={{ fontSize: '3rem', marginBottom: '0.5rem', color: '#fff' }}
+                        style={{
+                            fontSize: '3rem',
+                            marginBottom: '0.5rem',
+                            color: '#fff',
+                            textShadow: '0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.5)'
+                        }}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5, duration: 1 }}

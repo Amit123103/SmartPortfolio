@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AnimatePresence } from 'framer-motion';
 
 // Core Components
-import IntroScene from './components/intro/IntroScene';
+import CosmicJourney from './components/intro/CosmicJourney';
 import Home from './components/home/Home';
 import Projects from './components/projects/Projects';
 import Certifications from './components/certifications/Certifications';
@@ -133,7 +133,7 @@ const App = () => {
 
               {!introComplete ? (
                 <AnimatePresence>
-                  <IntroScene onComplete={handleIntroComplete} />
+                  <CosmicJourney onComplete={handleIntroComplete} />
                 </AnimatePresence>
               ) : (
                 <>

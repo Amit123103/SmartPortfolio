@@ -13,30 +13,39 @@ const InterviewModule = () => {
     const [input, setInput] = useState('');
     const bottomRef = useRef(null);
 
-    const handleSend = (e) => {
+    const handleSend = async (e) => {
         e.preventDefault();
         if (!input.trim()) return;
 
         // User Message
         const newHistory = [...history, { sender: 'user', text: input }];
         setHistory(newHistory);
-        const query = input.toLowerCase();
+        const query = input;
         setInput('');
 
         // AI Logic Simulation
-        setTimeout(() => {
-            let response = "My analysis is inconclusive on that specific query. However, my general data suggests a strong upward trajectory.";
+        setHistory(prev => [...prev, { sender: 'ai', text: "Analyzing query parameters...", isTyping: true }]);
 
-            const match = knowledgeBase.find(qa =>
-                qa.trigger.some(trigger => query.includes(trigger))
-            );
+        try {
+            const response = await fetch('/api/ai/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: query })
+            });
 
-            if (match) {
-                response = match.answer;
-            }
+            const data = await response.json();
 
-            setHistory(prev => [...prev, { sender: 'ai', text: response }]);
-        }, 800);
+            setHistory(prev => {
+                const filtered = prev.filter(msg => !msg.isTyping);
+                return [...filtered, { sender: 'ai', text: data.reply || "Connection to core interrupted." }];
+            });
+
+        } catch (error) {
+            setHistory(prev => {
+                const filtered = prev.filter(msg => !msg.isTyping);
+                return [...filtered, { sender: 'ai', text: "Error: Unable to reach autonomous core." }];
+            });
+        }
     };
 
     useEffect(() => {

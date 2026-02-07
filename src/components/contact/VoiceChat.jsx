@@ -46,16 +46,15 @@ const VoiceChat = () => {
 
     const handleAIInteraction = async (text) => {
         try {
-            // Simulated AI Call
-            // const res = await fetch(`${API_BASE_URL}/api/ai/chat`, ...)
+            // Real Backend Call
+            const res = await fetch(`/api/ai/chat`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: text })
+            });
 
-            // Mock Response for consistency in demo
-            const responses = [
-                "I've logged that request. Is there anything else?",
-                "Connecting you to the right department.",
-                "I can certainly help with that inquiry."
-            ];
-            const reply = responses[Math.floor(Math.random() * responses.length)];
+            const data = await res.json();
+            const reply = data.reply || "I didn't quite catch that.";
 
             setAiResponse(reply);
             setStatus('speaking');
@@ -63,6 +62,7 @@ const VoiceChat = () => {
         } catch (err) {
             console.error(err);
             setStatus('error');
+            setAiResponse("System offline.");
         }
     };
 

@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from '../AIHome.module.css';
 import { useAnalytics } from '../../../context/AnalyticsContext';
+import API_BASE_URL from '../../../config/api';
 
 const InterviewModule = () => {
     const { metrics } = useAnalytics();
@@ -27,7 +28,7 @@ const InterviewModule = () => {
         setHistory(prev => [...prev, { sender: 'ai', text: "Analyzing query parameters...", isTyping: true }]);
 
         try {
-            const response = await fetch('/api/ai/chat', {
+            const response = await fetch(`${API_BASE_URL}/api/ai/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: query })

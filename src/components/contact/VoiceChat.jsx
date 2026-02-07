@@ -47,7 +47,7 @@ const VoiceChat = () => {
     const handleAIInteraction = async (text) => {
         try {
             // Real Backend Call
-            const res = await fetch(`/api/ai/chat`, {
+            const res = await fetch(`${API_BASE_URL}/api/ai/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: text })
@@ -62,7 +62,7 @@ const VoiceChat = () => {
         } catch (err) {
             console.error(err);
             setStatus('error');
-            setAiResponse("System offline.");
+            setAiResponse("System offline (Check Connection).");
         }
     };
 

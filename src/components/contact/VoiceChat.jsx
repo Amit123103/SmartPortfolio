@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AIAvatar from './AIAvatar';
 import styles from './Contact.module.css';
+import API_BASE_URL from '../../config/api';
 
 const VoiceChat = () => {
     const [isListening, setIsListening] = useState(false);
@@ -46,7 +47,7 @@ const VoiceChat = () => {
     const handleAIInteraction = async (text) => {
         try {
             // Simulated AI Call
-            // const res = await fetch('http://localhost:3000/api/ai/chat', ...)
+            // const res = await fetch(`${API_BASE_URL}/api/ai/chat`, ...)
 
             // Mock Response for consistency in demo
             const responses = [

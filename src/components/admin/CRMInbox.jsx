@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Layout from '../layout/Layout';
+import API_BASE_URL from '../../config/api';
 
 const CRMInbox = () => {
     const [messages, setMessages] = useState([]);
@@ -7,7 +8,7 @@ const CRMInbox = () => {
     useEffect(() => {
         const fetchMessages = async () => {
             try {
-                const res = await fetch('http://localhost:3000/api/contact');
+                const res = await fetch(`${API_BASE_URL}/api/contact`);
                 const data = await res.json();
                 setMessages(data);
             } catch (err) {

@@ -121,7 +121,7 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <Router>
+      <Router basename="/SmartPortfolio">
         <TransitionProvider>
           <CinematicProvider>
             <AnalyticsProvider>

@@ -3,6 +3,7 @@ import emailjs from '@emailjs/browser';
 import { AnimatePresence } from 'framer-motion';
 import EmailSuccessBlast from './EmailSuccessBlast';
 import styles from './Contact.module.css';
+import API_BASE_URL from '../../config/api';
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -36,7 +37,7 @@ const ContactForm = () => {
 
             // 2. Optional: Still log to backend DB for safety (without sending email)
             // We fire-and-forget this to speed up UI
-            fetch('http://localhost:3000/api/contact', {
+            fetch(`${API_BASE_URL}/api/contact`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ ...formData, logOnly: true }) // Flag to skip backend email

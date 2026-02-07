@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import * as THREE from 'three';
 import gsap from 'gsap';
 import styles from './CosmicJourney.module.css';
+import { soundManager } from '../../audio/SoundManager';
+import { musicEngine } from '../../audio/MusicEngine';
 
 // --- SHADERS & MATERIALS ---
 const EarthMaterial = new THREE.MeshStandardMaterial({
@@ -146,6 +148,10 @@ const CosmicJourney = ({ onComplete }) => {
     const welcomeWords = ["Welcome", "to", "My", "Creation", "World"];
 
     useEffect(() => {
+        // Audio Init
+        soundManager.playLaunch();
+        musicEngine.startAmbient();
+
         // Word sequence logic
         const wordDelays = [500, 1200, 1600, 2100, 2900]; // Appearance times
 
@@ -159,8 +165,18 @@ const CosmicJourney = ({ onComplete }) => {
         return () => {
             timers.forEach(clearTimeout);
             clearTimeout(hideTimer);
+            musicEngine.stop(); // Optional: Stop ambient when component unmounts
         };
     }, []);
+
+    // Phase Audio Triggers
+    useEffect(() => {
+        if (phase === 'DESCENT') {
+            soundManager.playWarp();
+        } else if (phase === 'DIGITAL') {
+            soundManager.playLockOn();
+        }
+    }, [phase]);
 
     return (
         <motion.div
@@ -168,6 +184,11 @@ const CosmicJourney = ({ onComplete }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 1.5 } }}
+            onClick={() => {
+                // Ensure audio context is resumed on interaction
+                soundManager.init();
+                musicEngine.startAmbient();
+            }}
         >
             <Canvas>
                 <Suspense fallback={null}>

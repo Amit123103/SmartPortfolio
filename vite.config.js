@@ -5,4 +5,16 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: '/SmartPortfolio/',
   plugins: [react()],
+  build: {
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom', 'zustand'],
+          three: ['three', '@react-three/fiber', '@react-three/drei', '@react-three/xr'],
+          animations: ['framer-motion', 'gsap'],
+        },
+      },
+    },
+  },
 })

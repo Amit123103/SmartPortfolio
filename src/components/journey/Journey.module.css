@@ -1,0 +1,46 @@
+.container {
+    padding: 4rem 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+    min-height: 100vh;
+    position: relative;
+}
+
+.pageTitle {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 4rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.timelineWrapper {
+    position: relative;
+    padding: 2rem 0;
+}
+
+/* Central Line */
+.line {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    background: linear-gradient(to bottom, var(--color-primary), var(--color-accent), #8a2be2);
+    transform-origin: top;
+    border-radius: 4px;
+    box-shadow: 0 0 10px rgba(42, 117, 187, 0.5);
+}
+
+@media (max-width: 768px) {
+    .line {
+        left: 0;
+        /* Align line to left for mobile */
+    }
+
+    .pageTitle {
+        font-size: 2.5rem;
+    }
+}

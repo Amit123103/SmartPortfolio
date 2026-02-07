@@ -1,0 +1,126 @@
+.profileContainer {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    /* Essential for 3D tilt */
+    z-index: 10;
+    margin: 0 auto;
+}
+
+/* --- Animated Gradient Background --- */
+.gradientBackground {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    border-radius: 50%;
+    background: linear-gradient(45deg,
+            rgba(0, 255, 255, 0.2),
+            rgba(138, 43, 226, 0.2),
+            rgba(0, 255, 127, 0.2));
+    filter: blur(40px);
+    z-index: -2;
+    animation: gradientSpin 10s linear infinite;
+    opacity: 0.6;
+}
+
+@keyframes gradientSpin {
+    0% {
+        transform: rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: rotate(180deg) scale(1.1);
+    }
+
+    100% {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+/* --- Particle Halo --- */
+.particleCanvas {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: calc(100% + 100px);
+    height: calc(100% + 100px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* --- Profile Image Styling --- */
+.imageWrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    /* Glassmorphism Border */
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow:
+        0 0 30px rgba(0, 0, 0, 0.5),
+        inset 0 0 20px rgba(255, 255, 255, 0.05);
+    /* Inner glow */
+    background: rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+}
+
+.profileImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.05);
+    /* Avoid edge bleeding on blur */
+    transition: filter 0.3s ease;
+}
+
+/* --- Glow / Bloom --- */
+.glowRing {
+    position: absolute;
+    inset: -5px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(to right, cyan, purple) border-box;
+    -webkit-mask:
+        linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0);
+    mask:
+        linear-gradient(#fff 0 0) padding-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+    animation: glowRotate 8s linear infinite;
+    z-index: 3;
+    pointer-events: none;
+}
+
+@keyframes glowRotate {
+    0% {
+        filter: hue-rotate(0deg);
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+        opacity: 0.5;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profileContainer {
+        width: 200px;
+        height: 200px;
+    }
+}

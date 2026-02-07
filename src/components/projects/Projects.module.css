@@ -1,0 +1,95 @@
+.container {
+    padding: 3rem 2rem 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pageTitle {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.pageTitle::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 20%;
+    width: 60%;
+    height: 4px;
+    background: var(--color-primary);
+    box-shadow: 0 0 15px var(--color-primary);
+}
+
+.filterContainer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.filterBtn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #ccc;
+    padding: 0.6rem 1.5rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+}
+
+.filterBtn:hover {
+    border-color: #fff;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.activeFilter {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(230, 36, 41, 0.3);
+}
+
+.activeFilter:hover {
+    background: #ff3333;
+    background: var(--color-primary);
+    /* maintain primary color on active hover, maybe slight brightness tweak handled by logic if needed, but standard is fine */
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pageTitle {
+        font-size: 2.2rem;
+    }
+
+    .filterContainer {
+        gap: 0.5rem;
+    }
+
+    .filterBtn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}

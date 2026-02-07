@@ -1,0 +1,78 @@
+.card {
+    background: rgba(20, 20, 30, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 20px var(--skill-glow);
+    border-color: var(--skill-color);
+}
+
+.progressContainer {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin-bottom: 1.5rem;
+}
+
+.svgCircle {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+}
+
+.circleBackground {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.05);
+    stroke-width: 8;
+}
+
+.circleProgress {
+    fill: none;
+    stroke: var(--skill-color);
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    filter: drop-shadow(0 0 5px var(--skill-glow));
+}
+
+.percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.info {
+    text-align: center;
+}
+
+.name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 0.3rem;
+    font-family: var(--font-display);
+}
+
+.category {
+    font-size: 0.85rem;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}

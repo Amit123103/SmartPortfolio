@@ -1,0 +1,222 @@
+/* Reusing AchievementModal styles for consistency */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.modal {
+    background: #1a1a1a;
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.05), transparent);
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: white;
+    margin: 0;
+}
+
+.meta {
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-left: 1rem;
+    background: rgba(230, 36, 41, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+}
+
+.closeBtn {
+    background: transparent;
+    border: none;
+    color: #666;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.3s;
+    line-height: 1;
+    padding: 0 0.5rem;
+}
+
+.closeBtn:hover {
+    color: white;
+}
+
+.body {
+    padding: 2rem;
+}
+
+.description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #ddd;
+    margin-bottom: 2rem;
+}
+
+.sectionTitle {
+    color: white;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+}
+
+.techStack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.techItem {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.links {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.linkBtn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.primaryLink {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(230, 36, 41, 0.3);
+}
+
+.primaryLink:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(230, 36, 41, 0.5);
+    background: #ff3333;
+}
+
+.secondaryLink {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.secondaryLink:hover {
+    border-color: white;
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.galleryItem {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.galleryImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out;
+}
+
+.lightboxImg {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    .modal {
+        max-height: 95vh;
+        width: 100%;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .meta {
+        margin-left: 0;
+    }
+
+    .closeBtn {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+
+    .links {
+        flex-direction: column;
+    }
+
+    .linkBtn {
+        text-align: center;
+    }
+}

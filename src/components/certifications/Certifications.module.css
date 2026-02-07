@@ -1,0 +1,42 @@
+.container {
+    padding: 3rem 2rem 5rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pageTitle {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.pageTitle::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 20%;
+    width: 60%;
+    height: 4px;
+    background: var(--color-gold);
+    box-shadow: 0 0 15px var(--color-gold);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2.5rem;
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}

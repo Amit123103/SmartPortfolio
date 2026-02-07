@@ -1,0 +1,118 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    /* Reduced padding */
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 10, 10, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.logo {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    /* Slightly smaller logo */
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    z-index: 1001;
+    white-space: nowrap;
+}
+
+.desktopMenu {
+    display: flex;
+    gap: 0.8rem;
+    /* Significantly reduced gap from 2rem */
+    align-items: center;
+    flex-wrap: wrap;
+    /* Allow wrapping if absolutely necessary, but try to fit */
+    justify-content: flex-end;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-size: 0.8rem;
+    /* Smaller font size (was 0.9rem) */
+    font-weight: 500;
+    padding: 0.4rem 0.8rem;
+    /* Reduced padding */
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    white-space: nowrap;
+    /* Prevent text wrapping inside item */
+}
+
+.navItem:hover,
+.activeNavItem {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    /* Slightly more visible hover bg */
+}
+
+.icon {
+    width: 16px;
+    /* Smaller icon */
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobileToggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.mobileMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    z-index: 1000;
+}
+
+.mobileLink {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+/* Adjust breakpoint for mobile menu to appear sooner if screen is too narrow for all items */
+@media (max-width: 1150px) {
+
+    /* Increased breakpoint to catch overlap sooner */
+    .desktopMenu {
+        display: none;
+    }
+
+    .mobileToggle {
+        display: block;
+    }
+}

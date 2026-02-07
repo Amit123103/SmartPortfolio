@@ -1,0 +1,50 @@
+.button {
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid;
+    padding: 1.5rem 2rem;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: background 0.3s;
+}
+
+.button:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.icon {
+    font-size: 2.5rem;
+    z-index: 2;
+}
+
+.label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    z-index: 2;
+}
+
+.glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0%;
+    height: 0%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.1;
+    filter: blur(20px);
+    transition: width 0.3s, height 0.3s;
+}
+
+.button:hover .glow {
+    width: 200%;
+    height: 200%;
+}

@@ -1,0 +1,79 @@
+.card {
+    background: linear-gradient(145deg, rgba(20, 20, 30, 0.9), rgba(10, 10, 20, 0.95));
+    border-radius: 20px;
+    padding: 2.5rem;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    border-color: var(--card-accent);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--card-accent-glow);
+}
+
+.iconWrapper {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    color: var(--card-accent);
+    transition: transform 0.5s ease;
+}
+
+.card:hover .iconWrapper {
+    transform: scale(1.1) rotate(5deg);
+    filter: drop-shadow(0 0 10px var(--card-accent-glow));
+}
+
+.title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 0.8rem;
+}
+
+.description {
+    color: #aaa;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.date {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+    margin-bottom: 2rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.viewBtn {
+    margin-top: auto;
+    padding: 0.8rem 2rem;
+    background: transparent;
+    border: 1px solid var(--card-accent);
+    color: var(--card-accent);
+    border-radius: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.viewBtn:hover {
+    background: var(--card-accent);
+    color: #fff;
+    box-shadow: 0 0 20px var(--card-accent-glow);
+}

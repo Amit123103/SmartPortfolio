@@ -1,13 +1,6 @@
 import express from 'express';
 import OpenAI from 'openai';
-import express from 'express';
-import OpenAI from 'openai';
 import { profileData } from '../data/profile.js';
-
-const router = express.Router();
-const openai = process.env.OPENAI_API_KEY
-    ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
-    : null;
 
 const router = express.Router();
 const openai = process.env.OPENAI_API_KEY

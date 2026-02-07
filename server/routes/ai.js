@@ -1,4 +1,4 @@
-import express from 'express';
+import express from 'express'; // Fixed imports
 import OpenAI from 'openai';
 import { profileData } from '../data/profile.js';
 

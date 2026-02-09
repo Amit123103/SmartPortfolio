@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 // Core Components
@@ -121,7 +121,7 @@ const App = () => {
 
   return (
     <ErrorBoundary>
-      <Router basename="/SmartPortfolio">
+      <Router>
         <TransitionProvider>
           <CinematicProvider>
             <AnalyticsProvider>

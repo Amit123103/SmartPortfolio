@@ -5,7 +5,9 @@ import styles from './ProfileSection.module.css';
 // TODO: To use your own image:
 // 1. Place your image file (e.g., 'profile.png') in src/assets/
 // 2. Uncomment the line below:
-import profileImg from '../../assets/profile.png';
+import profileImg from '../../assets/profile.jpg';
+// ...
+// src={profileImg}
 
 const ProfileSection = () => {
     // Refs

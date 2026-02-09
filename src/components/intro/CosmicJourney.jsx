@@ -8,7 +8,7 @@ import styles from './CosmicJourney.module.css';
 import { soundManager } from '../../audio/SoundManager';
 import { musicEngine } from '../../audio/MusicEngine';
 
-import profileImg from '../../assets/profile.png';
+import profileImg from '../../assets/profile.jpg';
 // --- SHADERS & MATERIALS ---
 const EarthMaterial = new THREE.MeshStandardMaterial({
     color: '#1a365d',

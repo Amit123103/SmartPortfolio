@@ -5,7 +5,7 @@ import styles from './ProfileSection.module.css';
 // TODO: To use your own image:
 // 1. Place your image file (e.g., 'profile.png') in src/assets/
 // 2. Uncomment the line below:
-// import profileImg from '../../assets/profile.png'; 
+import profileImg from '../../assets/profile.png';
 
 const ProfileSection = () => {
     // Refs
@@ -150,7 +150,7 @@ const ProfileSection = () => {
                 }}
             >
                 <img
-                    src="https://img.sanishtech.com/u/f58ebc9c7395ab4c0ff522fbb41773e6.jpeg" // Placeholder
+                    src={profileImg}
                     alt="Profile"
                     className={styles.profileImage}
                 />

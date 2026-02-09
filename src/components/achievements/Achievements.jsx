@@ -12,7 +12,7 @@ const achievementsData = [
         title: 'Travilled to 40 Beautiful Places',
         description: 'A land of timeless beauty featuring a city with a white marble symbol of eternal love, royal regions of grand forts and palaces, sunny coastal stretches with lively nightlife, lush backwaters lined with coconut trees, a high-altitude cold desert wrapped in snow, a sacred river city rich in ancient rituals, misty hill stations with tea gardens, golden deserts offering camel safaris, and a bustling metropolitan heart that drives the nation’s economy',
         date: '2024',
-        image: placeholderImage('Hackathon Winner'),
+        image: placeholderImage('Travilled to 40 Beautiful Places'),
     },
     {
         id: 2,

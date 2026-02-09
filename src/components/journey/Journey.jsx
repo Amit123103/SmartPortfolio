@@ -5,36 +5,43 @@ import TimelineNode from './TimelineNode';
 import JourneyModal from './JourneyModal';
 import styles from './Journey.module.css';
 
+// Import journey images
+import journey2021 from '../../assets/journey/journey_2021.png';
+import journey2022 from '../../assets/journey/journey_2022.png';
+import journey2023 from '../../assets/journey/journey_2023.png';
+import journey2024 from '../../assets/journey/journey_2024.png';
+import journey2025 from '../../assets/journey/journey_2025.png';
+
 const journeyData = [
     {
         title: 'The Beginning',
         description: 'Started my journey with curiosity and passion for technology.',
         year: '2021',
-        image: `https://placehold.co/800x600/111/FFF?text=The+Beginning`,
+        image: journey2021,
     },
     {
         title: 'Learning the Foundations',
         description: 'Built strong foundations in programming and computer science logic.',
         year: '2022',
-        image: `https://placehold.co/800x600/222/FFF?text=Foundations`,
+        image: journey2022,
     },
     {
         title: 'Exploring Web & AI',
         description: 'Discovered interest in web development and artificial intelligence.',
         year: '2023',
-        image: `https://placehold.co/800x600/333/FFF?text=Web+%26+AI`,
+        image: journey2023,
     },
     {
         title: 'Building Real Projects',
         description: 'Created real-world projects and practical solutions using modern tech.',
         year: '2024',
-        image: `https://placehold.co/800x600/444/FFF?text=Real+Projects`,
+        image: journey2024,
     },
     {
         title: 'Growing & Innovating',
         description: 'Continuously improving skills and exploring advanced technologies.',
         year: '2025',
-        image: `https://placehold.co/800x600/555/FFF?text=Innovation`,
+        image: journey2025,
     },
 ];
 

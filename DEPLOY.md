@@ -24,14 +24,7 @@ Fill in the form exactly as follows:
 ## 3. Environment Variables
 Click **"Advanced"** or **"Environment Variables"** and add these keys (copy values from your local `.env`):
 
-| Key | Value |
-| :--- | :--- |
-| `NODE_VERSION` | `20` |
-| `SERVER_PORT` | `3000` |
-| `RESEND_API_KEY` | `re_4AKw8Lzm_KmHvXiH95W7nzTpUQUP4ny58` |
-| `RESEND_FROM_EMAIL` | `onboarding@resend.dev` |
-| `ADMIN_EMAIL` | `amitsingh6394366374@gmail.com` |
-| `OPENAI_API_KEY` | *(Optional, for AI features)* |
+
 
 ## 4. Deploy
 Click **"Create Web Service"**.

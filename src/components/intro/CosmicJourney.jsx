@@ -8,6 +8,7 @@ import styles from './CosmicJourney.module.css';
 import { soundManager } from '../../audio/SoundManager';
 import { musicEngine } from '../../audio/MusicEngine';
 
+import profileImg from '../../assets/profile.png';
 // --- SHADERS & MATERIALS ---
 const EarthMaterial = new THREE.MeshStandardMaterial({
     color: '#1a365d',
@@ -237,7 +238,7 @@ const CosmicJourney = ({ onComplete }) => {
                         <div className={styles.panelGlow} />
 
                         <motion.img
-                            src="https://img.sanishtech.com/u/f58ebc9c7395ab4c0ff522fbb41773e6.jpeg" // Profile Image
+                            src={profileImg}
                             alt="Profile"
                             className={styles.profileImage}
                             initial={{ scale: 0.8, opacity: 0 }}

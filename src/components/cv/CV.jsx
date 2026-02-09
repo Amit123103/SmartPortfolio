@@ -20,8 +20,8 @@ const documentsData = [
         title: 'Specialized CV (AI/ML)',
         description: 'Focused document highlighting Deep Learning projects, research, and advanced AI competencies.',
         date: 'Updated – February 2025',
-        image: 'https://img.sanishtech.com/u/49fc86ebf05ac2b66cd79ca5d4583026.png',
-        downloadUrl: 'https://img.sanishtech.com/u/49fc86ebf05ac2b66cd79ca5d4583026.png'
+        image: 'https://i.vgy.me/HfxqQQ.png',
+        downloadUrl: 'https://i.vgy.me/HfxqQQ.png'
     },
     {
         id: 3,

@@ -13,9 +13,9 @@ const experienceData = [
         location: 'New York, USA',
         date: 'June 2025 – July 2025',
         description: 'The Data Insights Virtual Internship is a comprehensive online training program designed to build real-world data analytics and data interpretation skills. The internship focuses on empowering students with practical experience in extracting meaningful insights from data using analytical tools and techniques.',
-        image: 'https://img.sanishtech.com/u/fee4d97f5b5755a054f00ef3963d8eec.png',
+        image: 'https://i.vgy.me/DAlAz9.png',
         certificate: 'Internship Completion Certificate',
-        certificateImage: 'https://img.sanishtech.com/u/fee4d97f5b5755a054f00ef3963d8eec.png'
+        certificateImage: 'https://i.vgy.me/DAlAz9.png'
     },
     {
         id: 2,

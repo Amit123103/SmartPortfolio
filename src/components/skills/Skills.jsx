@@ -4,7 +4,7 @@ import Layout from '../layout/Layout';
 import SkillCard from './SkillCard';
 import styles from './Skills.module.css';
 
-const skillsData = [
+export const skillsData = [
     // Frontend
     { name: 'HTML & CSS', category: 'Frontend', level: 90 },
     { name: 'JavaScript', category: 'Frontend', level: 85 },

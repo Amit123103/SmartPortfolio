@@ -5,7 +5,7 @@ import ExperienceTimelineNode from './ExperienceTimelineNode';
 import ExperienceModal from './ExperienceModal';
 import styles from './Experience.module.css';
 
-const experienceData = [
+export const experienceData = [
     {
         id: 1,
         title: 'AI-Powered Data Insights Intern',

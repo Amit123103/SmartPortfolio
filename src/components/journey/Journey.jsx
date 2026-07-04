@@ -12,7 +12,7 @@ import journey2023 from '../../assets/journey/journey_2023.png';
 import journey2024 from '../../assets/journey/journey_2024.png';
 import journey2025 from '../../assets/journey/journey_2025.png';
 
-const journeyData = [
+export const journeyData = [
     {
         title: 'The Beginning',
         description: 'Started my journey with curiosity and passion for technology.',

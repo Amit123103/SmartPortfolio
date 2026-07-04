@@ -4,7 +4,7 @@ import CertificationCard from './CertificationCard';
 import CertificateModal from './CertificateModal';
 import styles from './Certifications.module.css';
 
-const certificationsData = [
+export const certificationsData = [
     {
         id: 0,
         title: 'Technology Job Simulation',

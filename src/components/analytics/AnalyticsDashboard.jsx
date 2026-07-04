@@ -114,6 +114,18 @@ const AnalyticsDashboard = () => {
                     </div>
                 </section>
 
+                {/* GitHub Contributions */}
+                <section className={styles.insightSection}>
+                    <h2 className={styles.sectionTitle}>Real-Time GitHub Contributions</h2>
+                    <div className={styles.githubContainer}>
+                        <img 
+                            src="https://ghchart.rshah.org/0ff/Amit123103" 
+                            alt="Amit123103's Github Contributions" 
+                            style={{ width: '100%', maxWidth: '800px', filter: 'drop-shadow(0 0 10px rgba(0, 255, 255, 0.2))' }}
+                        />
+                    </div>
+                </section>
+
                 {/* Prediction / Forecast */}
                 <section className={styles.predictionSection}>
                     <h2 className={styles.sectionTitle}>Future Trajectory</h2>

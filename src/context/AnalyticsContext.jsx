@@ -1,4 +1,10 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { projectsData } from '../components/projects/Projects';
+import { skillsData } from '../components/skills/Skills';
+import { achievementsData } from '../components/achievements/Achievements';
+import { experienceData } from '../components/experience/Experience';
+import { certificationsData } from '../components/certifications/Certifications';
+import { journeyData } from '../components/journey/Journey';
 
 const AnalyticsContext = createContext();
 
@@ -10,25 +16,48 @@ export const AnalyticsProvider = ({ children }) => {
     const [insights, setInsights] = useState([]);
     const [predictions, setPredictions] = useState(null);
 
-    // Simulated "AI" Learning Process
+    // AI Learning Process - Now reads REAL data from the application
     useEffect(() => {
-        const learnData = async () => {
+        const analyzeData = async () => {
             setLoading(true);
 
-            // Simulate processing delay
+            // Simulate processing delay for UI cinematic effect
             await new Promise(r => setTimeout(r, 1500));
 
-            // 1. Generate Raw Data
+            // --- 1. PARSE RAW REAL-TIME DATA ---
+            const totalProjects = projectsData ? projectsData.length : 0;
+            const totalSkills = skillsData ? skillsData.length : 0;
+            const totalCerts = certificationsData ? certificationsData.length : 0;
+            const totalExp = experienceData ? experienceData.length : 0;
+
+            let pythonCount = 0;
+            let reactCount = 0;
+            let cvCount = 0;
+            
+            if (projectsData) {
+                projectsData.forEach(p => {
+                    const stack = p.techStack ? p.techStack.join(' ').toLowerCase() : '';
+                    if (stack.includes('python')) pythonCount++;
+                    if (stack.includes('react')) reactCount++;
+                    if (stack.includes('opencv') || stack.includes('cv')) cvCount++;
+                });
+            }
+
+            // Calculate Mastery dynamically based on real counts
+            const aiMastery = Math.min(100, 50 + (pythonCount * 12) + (cvCount * 10));
+            const frontendMastery = Math.min(100, 60 + (reactCount * 10));
+            const backendMastery = Math.min(100, 50 + (totalProjects * 5));
+
             const rawMetrics = {
-                consistency: 85, // %
-                problemSolving: 92, // Score
-                speed: 78, // Score
+                consistency: Math.min(100, 60 + (totalProjects * 5) + (totalCerts * 5)), 
+                problemSolving: Math.min(100, 70 + (pythonCount * 5)), 
+                speed: Math.min(100, 65 + (totalExp * 10)), 
                 mastery: {
-                    dsa: 88,
-                    frontend: 95,
-                    backend: 82,
-                    systemDesign: 75,
-                    ai: 60
+                    ai: aiMastery,
+                    frontend: frontendMastery,
+                    backend: backendMastery,
+                    systemDesign: 80,
+                    dsa: 85
                 },
                 history: Array.from({ length: 30 }, (_, i) => ({
                     day: i,
@@ -38,97 +67,109 @@ export const AnalyticsProvider = ({ children }) => {
 
             setMetrics(rawMetrics);
 
-            // 2. AI Reasoning Engine (Rule-based)
+            // --- 2. GENERATE DYNAMIC INSIGHTS FROM DATA ---
             const generatedInsights = [];
 
-            if (rawMetrics.consistency > 80) {
+            if (pythonCount >= 2) {
                 generatedInsights.push({
                     type: 'strength',
-                    text: 'High consistency detected. You are building muscle memory effectively.',
-                    confidence: 98
+                    text: `Detected ${pythonCount} Python/ML projects. High proficiency in Artificial Intelligence and Computer Vision.`,
+                    confidence: 96
                 });
             }
 
-            if (rawMetrics.mastery.dsa > 80) {
+            if (reactCount >= 2) {
                 generatedInsights.push({
                     type: 'growth',
-                    text: 'Graph algorithms showing strong retention. Ready for advanced dynamic programming.',
+                    text: `Strong Frontend foundation with ${reactCount} React projects. Ready for complex Fullstack architectures.`,
                     confidence: 92
                 });
             }
 
-            if (rawMetrics.speed < 80) {
+            if (totalExp > 0) {
+                generatedInsights.push({
+                    type: 'experience',
+                    text: `Professional experience identified. 'Market Readiness' score significantly increased.`,
+                    confidence: 98
+                });
+            }
+
+            if (totalCerts > 0) {
                 generatedInsights.push({
                     type: 'focus',
-                    text: 'Optimization opportunity: Solution speed is lagging behind accuracy.',
-                    confidence: 85
+                    text: `${totalCerts} certifications verified. Continuous learning velocity is high.`,
+                    confidence: 88
+                });
+            }
+            
+            if (generatedInsights.length === 0) {
+                generatedInsights.push({
+                    type: 'observation',
+                    text: `System observing portfolio data. Ready to process new project inputs.`,
+                    confidence: 100
                 });
             }
 
             setInsights(generatedInsights);
 
-            // 3. Prediction Engine
+            // --- 3. PREDICTION ENGINE ---
             setPredictions({
-                nextMasteryDate: '2 Weeks',
+                nextMasteryDate: 'Next Project Deployment',
                 projectedGrowth: [
                     { week: 'Now', score: 85 },
                     { week: '+1W', score: 87 },
                     { week: '+2W', score: 90 },
                     { week: '+3W', score: 91 },
-                    { week: '+4W', score: 94 } // Forecast
+                    { week: '+4W', score: 95 }
                 ],
                 burnoutRisk: 'Low'
             });
 
-            // 4. Recruiter Consciousness (New)
+            // --- 4. RECRUITER CONSCIOUSNESS ---
+            const baseScore = 70 + (totalProjects * 3) + (totalExp * 5);
             const recruiterData = {
-                score: 92,
-                hiringSignal: "Strong Backend Focus",
+                score: Math.min(100, baseScore),
+                hiringSignal: pythonCount > reactCount ? "Strong Machine Learning Focus" : "Strong Full Stack Focus",
                 marketFit: {
-                    "Full Stack": 95,
-                    "Backend": 98,
-                    "Frontend": 88
+                    "Artificial Intelligence": aiMastery,
+                    "Full Stack": frontendMastery,
+                    "Backend": backendMastery
                 },
-                topSkills: ["React", "Express", "System Design"]
+                topSkills: skillsData ? skillsData.slice(0, 3).map(s => s.name) : ["React", "Python", "JavaScript"]
             };
 
-            // 5. Future Simulations (New)
+            // --- 5. SIMULATIONS ---
             const simulations = [
-                { path: "Consistent Growth", probability: 75, outcome: "Senior Dev in 2 Yrs" },
-                { path: "Burnout Risk", probability: 15, outcome: "Stagnation" },
+                { path: "Consistent Growth", probability: 85, outcome: "Senior Dev in 2 Yrs" },
+                { path: "Burnout Risk", probability: 5, outcome: "Stagnation" },
                 { path: "Optimized Learning", probability: 10, outcome: "Tech Lead in 1.5 Yrs" }
             ];
 
-            // 6. Interview Knowledge Base
+            // --- 6. INTERVIEW KNOWLEDGE BASE ---
             const interviewQA = [
-                { id: 1, trigger: ["weakness", "weak"], answer: "My analysis indicates my 'UI Micro-interactions' are slightly below my Architecture skills. I'm actively refining this via Framer Motion studies." },
-                { id: 2, trigger: ["ready", "hire", "interview"], answer: "Calculating... Readiness Index is 92%. I am prepared for complex System Design and Behavioral inquiries." },
-                { id: 3, trigger: ["focus", "next"], answer: "Recommendation: Prioritize 'GraphQL Federation' patterns to maximize Market Fit score." },
-                { id: 4, trigger: ["hello", "hi", "hey"], answer: "System online. I am the autonomous intelligence of this portfolio. Query me." }
+                { id: 1, trigger: ["weakness", "weak"], answer: "My analysis indicates continuous growth. Always looking to optimize algorithms further." },
+                { id: 2, trigger: ["ready", "hire", "interview"], answer: `Calculating... Readiness Index is ${recruiterData.score}%. Prepared for Machine Learning and Fullstack inquiries.` },
+                { id: 3, trigger: ["projects", "work"], answer: `I have successfully completed ${totalProjects} major projects and hold ${totalCerts} professional certifications.` },
+                { id: 4, trigger: ["hello", "hi", "hey"], answer: "System online. I am the autonomous intelligence of this portfolio. I have parsed all your data." }
             ];
 
-            // 7. Collective Intelligence (New)
             const collectiveTrends = [
-                { trend: "Rust Adoption", userRelevance: 85, marketHeat: 92, status: "Observing" },
-                { trend: "AI Engineering", userRelevance: 95, marketHeat: 99, status: "Integrating" },
-                { trend: "Web Assembly", userRelevance: 60, marketHeat: 75, status: "Low Priority" }
+                { trend: "Computer Vision", userRelevance: cvCount > 0 ? 98 : 60, marketHeat: 92, status: cvCount > 0 ? "Mastering" : "Observing" },
+                { trend: "React & Node", userRelevance: reactCount > 0 ? 95 : 50, marketHeat: 88, status: "Integrating" }
             ];
 
-            // 8. Decision Matrix (New)
             const decisions = [
-                { id: 1, action: "Deepen System Design Practice", priority: "High", reason: "Interview readiness gap detected in Distributed Locking." },
-                { id: 2, action: "Contribute to Open Source", priority: "Medium", reason: "Increase 'Community Impact' score for Senior roles." },
-                { id: 3, action: "Refactor Portfolio Animations", priority: "Done", reason: "Optimizing render performance for mobile devices." }
+                { id: 1, action: "Deepen AI Integration", priority: "High", reason: `Detected ${pythonCount} AI projects, maximizing this niche is recommended.` },
+                { id: 2, action: "Expand Portfolio", priority: "Done", reason: "Real-time analysis engine successfully integrated." }
             ];
 
-            // 9. Hiring Readiness Index (New)
             const hiringIndex = {
-                score: 94,
-                delta: "+2% this week",
+                score: Math.min(100, recruiterData.score + 2),
+                delta: "+5% this week",
                 factors: [
-                    { name: "Technical Depth", score: 96 },
-                    { name: "Communication", score: 92 },
-                    { name: "Problem Solving", score: 95 }
+                    { name: "Technical Depth", score: Math.min(100, 80 + totalProjects * 2) },
+                    { name: "Project Volume", score: Math.min(100, 70 + totalProjects * 5) },
+                    { name: "Certifications", score: Math.min(100, 60 + totalCerts * 10) }
                 ]
             };
 
@@ -145,7 +186,7 @@ export const AnalyticsProvider = ({ children }) => {
             setLoading(false);
         };
 
-        learnData();
+        analyzeData();
     }, []);
 
     return (

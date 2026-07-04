@@ -16,7 +16,7 @@ import handDetectionImg from '../../assets/projects/hand_detection_drawing.png';
 // Fallback placeholder for missing images
 const placeholderImage = (text) => `https://placehold.co/1200x800/1a1a1a/FFF?text=${encodeURIComponent(text)}`;
 
-const projectsData = [
+export const projectsData = [
     {
         id: 1,
         title: 'Face Recognition Attendance System',

@@ -6,7 +6,7 @@ import styles from './Achievements.module.css';
 
 const placeholderImage = (text) => `https://placehold.co/600x400/101020/FFF?text=${encodeURIComponent(text)}`;
 
-const achievementsData = [
+export const achievementsData = [
     {
         id: 1,
         title: 'Travilled to 40 Beautiful Places',

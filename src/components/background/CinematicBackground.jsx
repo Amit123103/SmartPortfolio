@@ -322,68 +322,104 @@ const MiniSolarSystem = ({ position }) => {
     );
 };
 
-const InfiniteGalaxy = () => {
+const SpiralGalaxy = ({ position, color = "#ff77ff", speedOffset = 0 }) => {
     const groupRef = useRef();
     
-    // Generate star/dust particles with colors
-    const particleCount = 3000;
-    const positions = new Float32Array(particleCount * 3);
-    const colors = new Float32Array(particleCount * 3);
-    
-    const colorPalette = [
-        new THREE.Color("#14B8A6"), // Teal
-        new THREE.Color("#8a2be2"), // Purple
-        new THREE.Color("#ff007f"), // Pink
-        new THREE.Color("#ffd700"), // Gold
-        new THREE.Color("#00ffff"), // Cyan
-    ];
+    // Create particles only once using useMemo to avoid recreating on renders
+    const { positions, colors } = React.useMemo(() => {
+        const particleCount = 20000;
+        const pos = new Float32Array(particleCount * 3);
+        const col = new Float32Array(particleCount * 3);
+        const colorObj = new THREE.Color(color);
+        const whiteObj = new THREE.Color('#ffffff');
 
-    for (let i = 0; i < particleCount; i++) {
-        // Scatter particles in a long deep tunnel
-        positions[i * 3] = (Math.random() - 0.5) * 50; // x
-        positions[i * 3 + 1] = (Math.random() - 0.5) * 50; // y
-        positions[i * 3 + 2] = (Math.random() - 0.5) * 200 - 100; // z (depth)
+        for (let i = 0; i < particleCount; i++) {
+            const radius = Math.random() * 25;
+            const branchAngle = (i % 4) * ((2 * Math.PI) / 4); // 4 spiral arms
+            const spinAngle = radius * 0.4; 
+            
+            const randomX = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 3;
+            const randomY = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 1.5;
+            const randomZ = Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 3;
 
-        const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-        colors[i * 3] = color.r;
-        colors[i * 3 + 1] = color.g;
-        colors[i * 3 + 2] = color.b;
-    }
+            pos[i * 3] = Math.cos(branchAngle + spinAngle) * radius + randomX;
+            pos[i * 3 + 1] = randomY * (25 - radius) * 0.05; // Flattened disc
+            pos[i * 3 + 2] = Math.sin(branchAngle + spinAngle) * radius + randomZ;
 
-    // Generate solar systems
-    const solarSystems = Array.from({ length: 60 }).map(() => [
-        (Math.random() - 0.5) * 40, // x
-        (Math.random() - 0.5) * 40, // y
-        (Math.random() - 0.5) * 200 - 100  // z
-    ]);
+            const mixColor = colorObj.clone();
+            // Core is bright white
+            mixColor.lerp(whiteObj, Math.max(0, 1 - radius / 8));
+            
+            col[i * 3] = mixColor.r;
+            col[i * 3 + 1] = mixColor.g;
+            col[i * 3 + 2] = mixColor.b;
+        }
+        return { positions: pos, colors: col };
+    }, [color]);
 
     useFrame(({ clock }) => {
         const elapsedTime = clock.getElapsedTime();
-        const speed = 25; // Warp speed!
-        
         if (groupRef.current) {
-            // Move entire group towards the camera and loop it back
-            groupRef.current.position.z = (elapsedTime * speed) % 100;
-            // Add a slight cinematic spiral roll
-            groupRef.current.rotation.z = elapsedTime * 0.05;
+            groupRef.current.rotation.y = elapsedTime * 0.2 + speedOffset;
+            groupRef.current.rotation.x = 0.4;
+            groupRef.current.rotation.z = 0.2;
         }
     });
 
     return (
-        <group ref={groupRef}>
-            {/* Colored Galaxy Dust */}
+        <group position={position} ref={groupRef}>
             <points>
                 <bufferGeometry>
-                    <bufferAttribute attach="attributes-position" count={particleCount} array={positions} itemSize={3} />
-                    <bufferAttribute attach="attributes-color" count={particleCount} array={colors} itemSize={3} />
+                    <bufferAttribute attach="attributes-position" count={20000} array={positions} itemSize={3} />
+                    <bufferAttribute attach="attributes-color" count={20000} array={colors} itemSize={3} />
                 </bufferGeometry>
-                <pointsMaterial size={0.3} vertexColors transparent opacity={0.8} sizeAttenuation blending={THREE.AdditiveBlending} />
+                <pointsMaterial size={0.15} vertexColors transparent opacity={0.9} sizeAttenuation blending={THREE.AdditiveBlending} depthWrite={false} />
             </points>
+            <mesh>
+                <sphereGeometry args={[2.5, 32, 32]} />
+                <meshBasicMaterial color="#ffffff" transparent opacity={0.8} blending={THREE.AdditiveBlending} depthWrite={false} />
+            </mesh>
+            <pointLight intensity={4} distance={60} color={color} />
+        </group>
+    );
+};
 
-            {/* Mini Solar Systems scattered through the infinite galaxy */}
-            {solarSystems.map((pos, i) => (
-                <MiniSolarSystem key={i} position={pos} />
-            ))}
+const AnimatedGalaxy = ({ initialZ, color, offsetX, offsetY }) => {
+    const ref = useRef();
+    
+    useFrame(({ clock }) => {
+        const time = clock.getElapsedTime();
+        const speed = 25; // Speed of zoom
+        const loopDistance = 450;
+        
+        if (ref.current) {
+            // Distance traveled
+            const travel = (time * speed) % loopDistance;
+            let currentZ = initialZ + travel;
+            
+            // If it passes the camera (e.g., Z > 50), wrap it back around
+            if (currentZ > 50) {
+                currentZ -= loopDistance;
+            }
+            
+            ref.current.position.set(offsetX, offsetY, currentZ);
+        }
+    });
+    
+    return (
+        <group ref={ref}>
+            <SpiralGalaxy position={[0,0,0]} color={color} speedOffset={initialZ} />
+        </group>
+    );
+};
+
+const InfiniteMilkyWaySequence = () => {
+    return (
+        <group>
+            {/* Space multiple Milky Ways by 150 Z units */}
+            <AnimatedGalaxy initialZ={-100} offsetX={0} offsetY={0} color="#14B8A6" />
+            <AnimatedGalaxy initialZ={-250} offsetX={15} offsetY={-10} color="#8a2be2" />
+            <AnimatedGalaxy initialZ={-400} offsetX={-20} offsetY={15} color="#ff007f" />
         </group>
     );
 };
@@ -653,7 +689,7 @@ const CinematicBackground = () => {
                 {isExperiencePage ? (
                     <SupernovaEvent />
                 ) : isCvPage ? (
-                    <InfiniteGalaxy />
+                    <InfiniteMilkyWaySequence />
                 ) : isProjectsPage ? (
                     <BlackHole />
                 ) : isSkillsPage ? (

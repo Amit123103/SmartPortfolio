@@ -141,6 +141,89 @@ const BlackHole = () => {
     );
 };
 
+const SpaceStation = () => {
+    const stationRef = useRef();
+    const solarPanelsRef = useRef();
+
+    useFrame(({ clock }) => {
+        const elapsedTime = clock.getElapsedTime();
+        
+        // Orbit the station around the sun
+        const orbitRadius = 15;
+        const orbitSpeed = 0.2;
+        if (stationRef.current) {
+            stationRef.current.position.x = Math.cos(elapsedTime * orbitSpeed) * orbitRadius;
+            stationRef.current.position.z = Math.sin(elapsedTime * orbitSpeed) * orbitRadius;
+            
+            // Station slowly rotates as it orbits to always face tangentially or spin
+            stationRef.current.rotation.y = -elapsedTime * orbitSpeed; 
+            stationRef.current.rotation.x = Math.sin(elapsedTime * 0.5) * 0.2; // slight wobble
+        }
+
+        // Spin the solar panels relative to the station
+        if (solarPanelsRef.current) {
+            solarPanelsRef.current.rotation.x = elapsedTime * 0.5;
+        }
+    });
+
+    return (
+        <group ref={stationRef}>
+            {/* Core Module - Saffron, White, Green (Indian Flag Theme) */}
+            {/* Top Module: Saffron */}
+            <mesh position={[0, 1.5, 0]}>
+                <cylinderGeometry args={[0.8, 0.8, 1, 32]} />
+                <meshStandardMaterial color="#FF9933" metalness={0.6} roughness={0.4} />
+            </mesh>
+            
+            {/* Middle Module: White */}
+            <mesh position={[0, 0, 0]}>
+                <cylinderGeometry args={[0.9, 0.9, 2, 32]} />
+                <meshStandardMaterial color="#FFFFFF" metalness={0.7} roughness={0.3} />
+            </mesh>
+            {/* Ashoka Chakra representation (Blue Ring in center) */}
+            <mesh position={[0, 0, 0]}>
+                <cylinderGeometry args={[0.92, 0.92, 0.2, 32]} />
+                <meshStandardMaterial color="#000080" metalness={0.8} roughness={0.2} />
+            </mesh>
+
+            {/* Bottom Module: Green */}
+            <mesh position={[0, -1.5, 0]}>
+                <cylinderGeometry args={[0.8, 0.8, 1, 32]} />
+                <meshStandardMaterial color="#138808" metalness={0.6} roughness={0.4} />
+            </mesh>
+
+            {/* Solar Panels Group */}
+            <group ref={solarPanelsRef}>
+                {/* Left Panel Array */}
+                <mesh position={[-3.5, 0, 0]}>
+                    <boxGeometry args={[5, 0.1, 2]} />
+                    <meshStandardMaterial color="#112255" metalness={0.9} roughness={0.1} />
+                </mesh>
+                {/* Right Panel Array */}
+                <mesh position={[3.5, 0, 0]}>
+                    <boxGeometry args={[5, 0.1, 2]} />
+                    <meshStandardMaterial color="#112255" metalness={0.9} roughness={0.1} />
+                </mesh>
+                {/* Connecting Truss */}
+                <mesh position={[0, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+                    <cylinderGeometry args={[0.2, 0.2, 8, 16]} />
+                    <meshStandardMaterial color="#888888" metalness={0.8} roughness={0.2} />
+                </mesh>
+            </group>
+            
+            {/* Glowing Antenna */}
+            <mesh position={[0, 2.5, 0]}>
+                <cylinderGeometry args={[0.05, 0.05, 1, 8]} />
+                <meshStandardMaterial color="#aaaaaa" />
+            </mesh>
+            <mesh position={[0, 3, 0]}>
+                <sphereGeometry args={[0.1, 16, 16]} />
+                <meshBasicMaterial color="#ff0000" />
+            </mesh>
+        </group>
+    );
+};
+
 const SceneCamera = () => {
     useFrame(({ camera, clock }) => {
         const time = clock.getElapsedTime();
@@ -156,6 +239,7 @@ const CinematicBackground = () => {
     // Determine the current route
     const location = useLocation();
     const isProjectsPage = location.pathname === '/projects';
+    const isSkillsPage = location.pathname === '/skills';
 
     return (
         <div style={{
@@ -176,6 +260,12 @@ const CinematicBackground = () => {
                 
                 {isProjectsPage ? (
                     <BlackHole />
+                ) : isSkillsPage ? (
+                    <>
+                        <Sun />
+                        <SpaceStation />
+                        <Planet orbitRadius={25} speed={0.05} size={3} color="#2a75bb" /> {/* Giant Earth in background */}
+                    </>
                 ) : (
                     <>
                         <Sun />

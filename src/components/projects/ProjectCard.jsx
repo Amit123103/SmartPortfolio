@@ -9,7 +9,12 @@ const ProjectCard = ({ project, customDelay, onOpenModal }) => {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: customDelay, duration: 0.6, ease: "easeOut" }}
-            whileHover={{ y: -10 }}
+            whileHover={{ 
+                scale: 1.05, 
+                y: -15, 
+                zIndex: 10,
+                boxShadow: "0px 25px 50px -12px rgba(0, 200, 255, 0.5)" 
+            }}
         >
             <div className={styles.imageWrapper}>
                 <img src={project.image} alt={project.title} className={styles.image} />

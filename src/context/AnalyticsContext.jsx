@@ -73,7 +73,7 @@ export const AnalyticsProvider = ({ children }) => {
             if (pythonCount >= 2) {
                 generatedInsights.push({
                     type: 'strength',
-                    text: `Detected ${pythonCount} Python/ML projects. High proficiency in Artificial Intelligence and Computer Vision.`,
+                    text: `Detected ${pythonCount} AI projects. High proficiency in scalable MLOps architecture and automated model deployment.`,
                     confidence: 96
                 });
             }
@@ -81,7 +81,7 @@ export const AnalyticsProvider = ({ children }) => {
             if (reactCount >= 2) {
                 generatedInsights.push({
                     type: 'growth',
-                    text: `Strong Frontend foundation with ${reactCount} React projects. Ready for complex Fullstack architectures.`,
+                    text: `Strong Fullstack foundation with ${reactCount} React projects. Ready to integrate AI models into scalable web infrastructures.`,
                     confidence: 92
                 });
             }
@@ -89,7 +89,7 @@ export const AnalyticsProvider = ({ children }) => {
             if (totalExp > 0) {
                 generatedInsights.push({
                     type: 'experience',
-                    text: `Professional experience identified. 'Market Readiness' score significantly increased.`,
+                    text: `Professional experience identified. 'Enterprise MLOps Readiness' score significantly increased.`,
                     confidence: 98
                 });
             }
@@ -97,7 +97,7 @@ export const AnalyticsProvider = ({ children }) => {
             if (totalCerts > 0) {
                 generatedInsights.push({
                     type: 'focus',
-                    text: `${totalCerts} certifications verified. Continuous learning velocity is high.`,
+                    text: `${totalCerts} certifications verified. Continuous learning velocity in Cloud & MLOps is exceptionally high.`,
                     confidence: 88
                 });
             }
@@ -129,38 +129,38 @@ export const AnalyticsProvider = ({ children }) => {
             const baseScore = 70 + (totalProjects * 3) + (totalExp * 5);
             const recruiterData = {
                 score: Math.min(100, baseScore),
-                hiringSignal: pythonCount > reactCount ? "Strong Machine Learning Focus" : "Strong Full Stack Focus",
+                hiringSignal: pythonCount > reactCount ? "Enterprise MLOps & Infrastructure Focus" : "AI-Powered Full Stack Focus",
                 marketFit: {
-                    "Artificial Intelligence": aiMastery,
-                    "Full Stack": frontendMastery,
-                    "Backend": backendMastery
+                    "MLOps & CI/CD": aiMastery,
+                    "Cloud Architecture": frontendMastery,
+                    "Data Engineering": backendMastery
                 },
-                topSkills: skillsData ? skillsData.slice(0, 3).map(s => s.name) : ["React", "Python", "JavaScript"]
+                topSkills: skillsData ? skillsData.slice(0, 3).map(s => s.name) : ["Docker", "Kubernetes", "Python"]
             };
 
             // --- 5. SIMULATIONS ---
             const simulations = [
-                { path: "Consistent Growth", probability: 85, outcome: "Senior Dev in 2 Yrs" },
+                { path: "Consistent Growth", probability: 85, outcome: "Senior MLOps Engineer in 2 Yrs" },
                 { path: "Burnout Risk", probability: 5, outcome: "Stagnation" },
-                { path: "Optimized Learning", probability: 10, outcome: "Tech Lead in 1.5 Yrs" }
+                { path: "Optimized Learning", probability: 10, outcome: "Lead AI Architect in 1.5 Yrs" }
             ];
 
             // --- 6. INTERVIEW KNOWLEDGE BASE ---
             const interviewQA = [
-                { id: 1, trigger: ["weakness", "weak"], answer: "My analysis indicates continuous growth. Always looking to optimize algorithms further." },
-                { id: 2, trigger: ["ready", "hire", "interview"], answer: `Calculating... Readiness Index is ${recruiterData.score}%. Prepared for Machine Learning and Fullstack inquiries.` },
-                { id: 3, trigger: ["projects", "work"], answer: `I have successfully completed ${totalProjects} major projects and hold ${totalCerts} professional certifications.` },
-                { id: 4, trigger: ["hello", "hi", "hey"], answer: "System online. I am the autonomous intelligence of this portfolio. I have parsed all your data." }
+                { id: 1, trigger: ["weakness", "weak"], answer: "My analysis indicates continuous growth. Always looking to optimize CI/CD pipelines and model latency further." },
+                { id: 2, trigger: ["ready", "hire", "interview"], answer: `Calculating... MLOps Readiness Index is ${recruiterData.score}%. Prepared for infrastructure and model deployment inquiries.` },
+                { id: 3, trigger: ["projects", "work"], answer: `I have successfully deployed ${totalProjects} major projects and hold ${totalCerts} professional certifications.` },
+                { id: 4, trigger: ["hello", "hi", "hey"], answer: "System online. I am the autonomous intelligence of this portfolio. I have parsed all MLOps and infrastructure data." }
             ];
 
             const collectiveTrends = [
-                { trend: "Computer Vision", userRelevance: cvCount > 0 ? 98 : 60, marketHeat: 92, status: cvCount > 0 ? "Mastering" : "Observing" },
-                { trend: "React & Node", userRelevance: reactCount > 0 ? 95 : 50, marketHeat: 88, status: "Integrating" }
+                { trend: "AIOps & Self-Healing Ops", userRelevance: cvCount > 0 ? 98 : 60, marketHeat: 95, status: cvCount > 0 ? "Mastering" : "Observing" },
+                { trend: "Kubernetes & Docker", userRelevance: reactCount > 0 ? 95 : 50, marketHeat: 90, status: "Integrating" }
             ];
 
             const decisions = [
-                { id: 1, action: "Deepen AI Integration", priority: "High", reason: `Detected ${pythonCount} AI projects, maximizing this niche is recommended.` },
-                { id: 2, action: "Expand Portfolio", priority: "Done", reason: "Real-time analysis engine successfully integrated." }
+                { id: 1, action: "Deepen MLOps Integration", priority: "High", reason: `Detected ${pythonCount} AI projects, prioritizing scalable containerization and CI/CD is recommended.` },
+                { id: 2, action: "Expand Cloud Architecture", priority: "Done", reason: "Real-time MLOps analysis engine successfully integrated." }
             ];
 
             const hiringIndex = {

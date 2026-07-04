@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import React, { useRef, Suspense } from 'react';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import { TextureLoader } from 'three';
 import { Stars } from '@react-three/drei';
 import * as THREE from 'three';
 import { useLocation } from 'react-router-dom';
@@ -224,6 +225,43 @@ const SpaceStation = () => {
     );
 };
 
+const RealisticEarth = () => {
+    const earthRef = useRef();
+    
+    // Load high res earth texture and normal map
+    const [colorMap, normalMap] = useLoader(TextureLoader, [
+        'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
+        'https://unpkg.com/three-globe/example/img/earth-topology.png'
+    ]);
+
+    useFrame(({ clock }) => {
+        const elapsedTime = clock.getElapsedTime();
+        const orbitRadius = 18;
+        const speed = 0.15;
+        if (earthRef.current) {
+            earthRef.current.position.x = Math.cos(elapsedTime * speed) * orbitRadius;
+            earthRef.current.position.z = Math.sin(elapsedTime * speed) * orbitRadius;
+            // Earth spinning on its axis
+            earthRef.current.rotation.y += 0.005;
+            earthRef.current.rotation.x = 0.2; // Axial tilt
+        }
+    });
+
+    return (
+        <group>
+            <mesh ref={earthRef}>
+                <sphereGeometry args={[2.5, 64, 64]} />
+                <meshStandardMaterial 
+                    map={colorMap} 
+                    normalMap={normalMap} 
+                    roughness={0.6} 
+                    metalness={0.2}
+                />
+            </mesh>
+        </group>
+    );
+};
+
 const SceneCamera = () => {
     useFrame(({ camera, clock }) => {
         const time = clock.getElapsedTime();
@@ -269,17 +307,22 @@ const CinematicBackground = () => {
                 ) : (
                     <>
                         <Sun />
+                        {/* Huge Realistic Earth Orbiting */}
+                        <Suspense fallback={<Planet orbitRadius={18} speed={0.15} size={2.5} color="#2a75bb" />}>
+                            <RealisticEarth />
+                        </Suspense>
+                        
                         {/* 10 Planets matching the 10 Navigation Option Colors */}
                         <Planet orbitRadius={6} speed={0.8} size={0.3} color="#2a75bb" />   {/* Home */}
                         <Planet orbitRadius={9} speed={0.6} size={0.5} color="#8a2be2" />   {/* Projects */}
                         <Planet orbitRadius={12} speed={0.5} size={0.4} color="#00ccff" />  {/* Analytics */}
-                        <Planet orbitRadius={16} speed={0.4} size={0.6} color="#00ffff" />  {/* Skills */}
-                        <Planet orbitRadius={20} speed={0.3} size={0.7} color="#2ebf91" />  {/* Certifications */}
-                        <Planet orbitRadius={25} speed={0.25} size={1.2} color="#ffd700" /> {/* Achievements */}
-                        <Planet orbitRadius={30} speed={0.2} size={1.0} color="#ff69b4" />  {/* Journey */}
-                        <Planet orbitRadius={36} speed={0.15} size={0.9} color="#ff8c00" /> {/* Experience */}
-                        <Planet orbitRadius={42} speed={0.1} size={0.8} color="#008080" />  {/* CV */}
-                        <Planet orbitRadius={48} speed={0.05} size={0.5} color="#ff4444" /> {/* Contact */}
+                        <Planet orbitRadius={24} speed={0.4} size={0.6} color="#00ffff" />  {/* Skills */}
+                        <Planet orbitRadius={28} speed={0.3} size={0.7} color="#2ebf91" />  {/* Certifications */}
+                        <Planet orbitRadius={33} speed={0.25} size={1.2} color="#ffd700" /> {/* Achievements */}
+                        <Planet orbitRadius={38} speed={0.2} size={1.0} color="#ff69b4" />  {/* Journey */}
+                        <Planet orbitRadius={44} speed={0.15} size={0.9} color="#ff8c00" /> {/* Experience */}
+                        <Planet orbitRadius={50} speed={0.1} size={0.8} color="#008080" />  {/* CV */}
+                        <Planet orbitRadius={56} speed={0.05} size={0.5} color="#ff4444" /> {/* Contact */}
                     </>
                 )}
             </Canvas>

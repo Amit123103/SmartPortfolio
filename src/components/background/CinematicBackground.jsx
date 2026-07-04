@@ -389,6 +389,155 @@ const InfiniteGalaxy = () => {
     );
 };
 
+const SupernovaEvent = () => {
+    const sunRef = useRef();
+    const flashRef = useRef();
+    const planetsRef = useRef([]);
+    const meteorsRef = useRef([]);
+    const explosionsRef = useRef([]);
+
+    // 5 distinct planets
+    const planetData = [
+        { radius: 6, speed: 1.2, size: 0.4, color: "#3388ff", meteorStart: [20, 10, -25] },
+        { radius: 10, speed: 0.8, size: 0.6, color: "#ff5533", meteorStart: [-25, 15, -15] },
+        { radius: 14, speed: 0.5, size: 0.8, color: "#aa33ff", meteorStart: [30, -20, 15] },
+        { radius: 18, speed: 0.4, size: 1.0, color: "#33ffaa", meteorStart: [-35, -25, 25] },
+        { radius: 24, speed: 0.2, size: 1.2, color: "#ffaa33", meteorStart: [0, 40, -40] },
+    ];
+
+    useFrame(({ clock }) => {
+        const t = clock.getElapsedTime() % 25; // 25s loop
+
+        // Sun logic
+        if (sunRef.current) {
+            if (t < 16) {
+                // Normal sun
+                sunRef.current.scale.setScalar(2);
+                sunRef.current.material.color.set("#ffcc00");
+                sunRef.current.material.emissive.set("#ffaa00");
+            } else if (t >= 16 && t < 22) {
+                // Unstable pulsing sun
+                const pulse = Math.sin(t * 20) * 0.5 + 2.5; // Scale pulses wildly
+                sunRef.current.scale.setScalar(pulse);
+                // Color shifts to blinding white/blue
+                sunRef.current.material.color.set("#ffffff");
+                sunRef.current.material.emissive.set("#aaaaff");
+            } else {
+                // Supernova shrinking core
+                sunRef.current.scale.setScalar(0.1);
+            }
+        }
+
+        // Planets logic
+        planetsRef.current.forEach((planet, i) => {
+            if (planet) {
+                if (t < 12) {
+                    planet.visible = true;
+                    const angle = t * planetData[i].speed;
+                    planet.position.x = Math.cos(angle) * planetData[i].radius;
+                    planet.position.z = Math.sin(angle) * planetData[i].radius;
+                    planet.rotation.y += 0.05;
+                } else {
+                    planet.visible = false;
+                }
+            }
+        });
+
+        // Meteors logic
+        meteorsRef.current.forEach((meteor, i) => {
+            if (meteor) {
+                if (t >= 8 && t < 12) {
+                    meteor.visible = true;
+                    const progress = (t - 8) / 4; // 0 to 1
+                    
+                    const targetAngle = 12 * planetData[i].speed;
+                    const targetX = Math.cos(targetAngle) * planetData[i].radius;
+                    const targetZ = Math.sin(targetAngle) * planetData[i].radius;
+
+                    const start = planetData[i].meteorStart;
+                    meteor.position.set(
+                        start[0] + (targetX - start[0]) * progress,
+                        start[1] + (0 - start[1]) * progress,
+                        start[2] + (targetZ - start[2]) * progress
+                    );
+                } else {
+                    meteor.visible = false;
+                }
+            }
+        });
+
+        // Explosions logic
+        explosionsRef.current.forEach((explosion, i) => {
+            if (explosion) {
+                if (t >= 12 && t < 16) {
+                    explosion.visible = true;
+                    const scale = (t - 12) * 2; // Expands outward
+                    explosion.scale.setScalar(scale);
+                    
+                    const targetAngle = 12 * planetData[i].speed;
+                    explosion.position.x = Math.cos(targetAngle) * planetData[i].radius;
+                    explosion.position.z = Math.sin(targetAngle) * planetData[i].radius;
+                    
+                    explosion.material.opacity = Math.max(0, 1 - (t - 12) / 4);
+                } else {
+                    explosion.visible = false;
+                }
+            }
+        });
+
+        // Supernova Flash logic
+        if (flashRef.current) {
+            if (t >= 22) {
+                flashRef.current.visible = true;
+                const progress = t - 22; // 0 to 3s
+                
+                flashRef.current.scale.setScalar(progress * 150);
+                flashRef.current.material.opacity = Math.max(0, 1 - (progress / 3));
+            } else {
+                flashRef.current.visible = false;
+            }
+        }
+    });
+
+    return (
+        <group>
+            {/* The Sun */}
+            <mesh ref={sunRef}>
+                <sphereGeometry args={[1, 32, 32]} />
+                <meshStandardMaterial color="#ffcc00" emissive="#ffaa00" emissiveIntensity={2} />
+                <pointLight distance={100} intensity={5} decay={2} />
+            </mesh>
+
+            {/* Supernova Blinding Flash */}
+            <mesh ref={flashRef} visible={false}>
+                <sphereGeometry args={[1, 32, 32]} />
+                <meshBasicMaterial color="#ffffff" transparent opacity={0.8} blending={THREE.AdditiveBlending} depthWrite={false} side={THREE.BackSide} />
+            </mesh>
+
+            {/* Planets, Meteors, and Explosions */}
+            {planetData.map((data, i) => (
+                <group key={i}>
+                    <mesh ref={(el) => (planetsRef.current[i] = el)}>
+                        <sphereGeometry args={[data.size, 32, 32]} />
+                        <meshStandardMaterial color={data.color} roughness={0.7} metalness={0.3} />
+                    </mesh>
+
+                    <mesh ref={(el) => (meteorsRef.current[i] = el)} visible={false}>
+                        <sphereGeometry args={[data.size * 0.5, 16, 16]} />
+                        <meshBasicMaterial color="#ff3300" />
+                        <pointLight color="#ff3300" intensity={2} distance={20} />
+                    </mesh>
+
+                    <mesh ref={(el) => (explosionsRef.current[i] = el)} visible={false}>
+                        <sphereGeometry args={[data.size, 32, 32]} />
+                        <meshBasicMaterial color="#ffaa00" transparent opacity={1} blending={THREE.AdditiveBlending} depthWrite={false} />
+                    </mesh>
+                </group>
+            ))}
+        </group>
+    );
+};
+
 const SceneCamera = () => {
     useFrame(({ camera, clock }) => {
         const time = clock.getElapsedTime();
@@ -406,6 +555,7 @@ const CinematicBackground = () => {
     const isProjectsPage = location.pathname === '/projects';
     const isSkillsPage = location.pathname === '/skills';
     const isCvPage = location.pathname === '/cv' || location.pathname === '/resume';
+    const isExperiencePage = location.pathname === '/experience';
 
     return (
         <div style={{
@@ -424,7 +574,9 @@ const CinematicBackground = () => {
                 
                 <Stars radius={150} depth={50} count={7000} factor={6} saturation={0.5} fade speed={1} />
                 
-                {isCvPage ? (
+                {isExperiencePage ? (
+                    <SupernovaEvent />
+                ) : isCvPage ? (
                     <InfiniteGalaxy />
                 ) : isProjectsPage ? (
                     <BlackHole />

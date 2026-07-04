@@ -418,12 +418,19 @@ const SupernovaEvent = () => {
                 sunRef.current.material.color.set("#ffcc00");
                 sunRef.current.material.emissive.set("#ffaa00");
             } else if (t >= 16 && t < 22) {
-                // Violent pulsing and color shift
-                const pulse = Math.sin(t * 30) * 0.8 + 2.5 + (t - 16) * 0.2; 
+                // Violent pulsing (Chemical instability)
+                const pulse = Math.sin(t * 30) * 0.8 + 2.5 + (t - 16) * 0.3; 
                 sunRef.current.scale.setScalar(pulse);
-                // Shift to white/blue
-                sunRef.current.material.color.set("#ffffff");
-                sunRef.current.material.emissive.set("#aaaaff");
+                
+                // Simulate crazy chemical changes by cycling RGB channels violently
+                const r = 0.5 + Math.sin(t * 10) * 0.5;
+                const g = 0.5 + Math.cos(t * 15) * 0.5;
+                const b = 0.5 + Math.sin(t * 20) * 0.5;
+                
+                sunRef.current.material.color.setRGB(r, g, b);
+                // Emissive shifts to an unstable super-hot cyan/white as it approaches 22s
+                const heat = (t - 16) / 6; // 0 to 1
+                sunRef.current.material.emissive.setRGB(heat, heat * 0.5 + 0.5, 1);
             } else {
                 // Shrink core instantly
                 sunRef.current.scale.setScalar(0.01);
@@ -638,8 +645,8 @@ const CinematicBackground = () => {
         }}>
             <Canvas camera={{ position: [0, 10, 30], fov: 45 }}>
                 <SceneCamera isExperiencePage={isExperiencePage} />
-                <ambientLight intensity={isSkillsPage ? 0.4 : 0.05} />
-                {isSkillsPage && <directionalLight position={[10, 20, 10]} intensity={1.5} color="#ffffff" />}
+                <ambientLight intensity={isSkillsPage || isExperiencePage ? 0.4 : 0.05} />
+                {(isSkillsPage || isExperiencePage) && <directionalLight position={[10, 20, 10]} intensity={1.5} color="#ffffff" />}
                 
                 <Stars radius={150} depth={50} count={7000} factor={6} saturation={0.5} fade speed={1} />
                 

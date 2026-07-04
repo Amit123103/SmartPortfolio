@@ -135,7 +135,7 @@ export const AnalyticsProvider = ({ children }) => {
                     "Cloud Architecture": frontendMastery,
                     "Data Engineering": backendMastery
                 },
-                topSkills: skillsData ? skillsData.slice(0, 3).map(s => s.name) : ["Docker", "Kubernetes", "Python"]
+                topSkills: ["Docker & Kubernetes", "CI/CD Automation", "Model Deployment (MLOps)"]
             };
 
             // --- 5. SIMULATIONS ---

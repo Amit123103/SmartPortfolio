@@ -85,7 +85,8 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: #000;
+    background: rgba(0, 5, 10, 0.6);
+    backdrop-filter: blur(15px);
     display: flex;
     flex-direction: column;
     justify-content: center;

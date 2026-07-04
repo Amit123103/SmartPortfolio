@@ -142,7 +142,7 @@ const BlackHole = () => {
     );
 };
 
-const SpaceStation = () => {
+const SpaceStation = ({ radius = 15, speed = 0.2, angleOffset = 0, scale = 1 }) => {
     const stationRef = useRef();
     const solarPanelsRef = useRef();
 
@@ -150,15 +150,14 @@ const SpaceStation = () => {
         const elapsedTime = clock.getElapsedTime();
         
         // Orbit the station around the sun
-        const orbitRadius = 15;
-        const orbitSpeed = 0.2;
+        const currentAngle = (elapsedTime * speed) + angleOffset;
         if (stationRef.current) {
-            stationRef.current.position.x = Math.cos(elapsedTime * orbitSpeed) * orbitRadius;
-            stationRef.current.position.z = Math.sin(elapsedTime * orbitSpeed) * orbitRadius;
+            stationRef.current.position.x = Math.cos(currentAngle) * radius;
+            stationRef.current.position.z = Math.sin(currentAngle) * radius;
             
-            // Station slowly rotates as it orbits to always face tangentially or spin
-            stationRef.current.rotation.y = -elapsedTime * orbitSpeed; 
-            stationRef.current.rotation.x = Math.sin(elapsedTime * 0.5) * 0.2; // slight wobble
+            // Station slowly rotates as it orbits
+            stationRef.current.rotation.y = -currentAngle; 
+            stationRef.current.rotation.x = Math.sin(elapsedTime * 0.5 + angleOffset) * 0.2; // slight wobble
         }
 
         // Spin the solar panels relative to the station
@@ -168,7 +167,7 @@ const SpaceStation = () => {
     });
 
     return (
-        <group ref={stationRef}>
+        <group ref={stationRef} scale={[scale, scale, scale]}>
             {/* Core Module - Saffron, White, Green (Indian Flag Theme) */}
             {/* Top Module: Saffron */}
             <mesh position={[0, 1.5, 0]}>
@@ -652,8 +651,24 @@ const CinematicBackground = () => {
                 ) : isSkillsPage ? (
                     <>
                         <Sun />
-                        <SpaceStation />
-                        <Planet orbitRadius={25} speed={0.05} size={3} color="#2a75bb" /> {/* Giant Earth in background */}
+                        {/* 10 Satellites / Space Stations orbiting */}
+                        <SpaceStation radius={8} speed={0.4} angleOffset={0} scale={0.5} />
+                        <SpaceStation radius={10} speed={0.35} angleOffset={Math.PI / 2} scale={0.6} />
+                        <SpaceStation radius={12} speed={0.5} angleOffset={Math.PI} scale={0.4} />
+                        <SpaceStation radius={14} speed={0.3} angleOffset={(3 * Math.PI) / 2} scale={0.7} />
+                        <SpaceStation radius={16} speed={0.25} angleOffset={Math.PI / 4} scale={0.5} />
+                        <SpaceStation radius={18} speed={0.45} angleOffset={(5 * Math.PI) / 4} scale={0.6} />
+                        <SpaceStation radius={20} speed={0.2} angleOffset={Math.PI / 3} scale={0.8} />
+                        <SpaceStation radius={22} speed={0.3} angleOffset={(4 * Math.PI) / 3} scale={0.5} />
+                        <SpaceStation radius={26} speed={0.15} angleOffset={(5 * Math.PI) / 3} scale={0.9} />
+                        <SpaceStation radius={30} speed={0.25} angleOffset={Math.PI / 6} scale={0.7} />
+
+                        {/* Multiple Planets */}
+                        <Planet orbitRadius={9} speed={0.2} size={0.8} color="#ff3355" /> 
+                        <Planet orbitRadius={15} speed={0.15} size={1.2} color="#33ff88" /> 
+                        <Planet orbitRadius={21} speed={0.1} size={1.5} color="#aa33ff" /> 
+                        <Planet orbitRadius={28} speed={0.08} size={2.0} color="#ffaa33" /> 
+                        <Planet orbitRadius={35} speed={0.05} size={3.0} color="#2a75bb" /> {/* Giant Blue Earth */}
                     </>
                 ) : (
                     <>

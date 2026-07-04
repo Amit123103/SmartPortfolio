@@ -262,6 +262,133 @@ const RealisticEarth = () => {
     );
 };
 
+const MiniSolarSystem = ({ position }) => {
+    const systemRef = useRef();
+    
+    // Randomize initial rotation and speeds for uniqueness
+    const initialRotation = Math.random() * Math.PI * 2;
+    const speedMultiplier = 0.5 + Math.random();
+    
+    useFrame(({ clock }) => {
+        if (systemRef.current) {
+            systemRef.current.rotation.y = initialRotation + clock.getElapsedTime() * speedMultiplier;
+        }
+    });
+
+    return (
+        <group position={position} ref={systemRef}>
+            {/* Tiny Sun */}
+            <mesh>
+                <sphereGeometry args={[0.3, 16, 16]} />
+                <meshBasicMaterial color="#ffffaa" />
+                <pointLight intensity={1} distance={10} color="#ffffaa" decay={2} />
+            </mesh>
+            
+            {/* Tiny Orbiting Planet 1 */}
+            <group rotation={[0, 0, 0.2]}>
+                <mesh position={[1.2, 0, 0]}>
+                    <sphereGeometry args={[0.08, 8, 8]} />
+                    <meshStandardMaterial color="#3388ff" />
+                </mesh>
+                {/* Orbit Path */}
+                <line>
+                    <bufferGeometry attach="geometry" {...(() => {
+                        const pts = [];
+                        for(let i=0; i<=32; i++) {
+                            const angle = (i/32) * Math.PI * 2;
+                            pts.push(new THREE.Vector3(Math.cos(angle)*1.2, 0, Math.sin(angle)*1.2));
+                        }
+                        return { setFromPoints: (p) => new THREE.BufferGeometry().setFromPoints(pts) };
+                    })()} />
+                    <lineBasicMaterial attach="material" color="#3388ff" transparent opacity={0.2} />
+                </line>
+            </group>
+
+            {/* Tiny Orbiting Planet 2 */}
+            <group rotation={[0.3, 0, -0.1]}>
+                <mesh position={[-2.0, 0, 0]}>
+                    <sphereGeometry args={[0.12, 8, 8]} />
+                    <meshStandardMaterial color="#ff5533" />
+                </mesh>
+            </group>
+
+            {/* Tiny Orbiting Planet 3 */}
+            <group rotation={[-0.2, 0, 0.4]}>
+                <mesh position={[0, 0, 2.8]}>
+                    <sphereGeometry args={[0.15, 8, 8]} />
+                    <meshStandardMaterial color="#aa33ff" />
+                </mesh>
+            </group>
+        </group>
+    );
+};
+
+const InfiniteGalaxy = () => {
+    const groupRef = useRef();
+    
+    // Generate star/dust particles with colors
+    const particleCount = 3000;
+    const positions = new Float32Array(particleCount * 3);
+    const colors = new Float32Array(particleCount * 3);
+    
+    const colorPalette = [
+        new THREE.Color("#14B8A6"), // Teal
+        new THREE.Color("#8a2be2"), // Purple
+        new THREE.Color("#ff007f"), // Pink
+        new THREE.Color("#ffd700"), // Gold
+        new THREE.Color("#00ffff"), // Cyan
+    ];
+
+    for (let i = 0; i < particleCount; i++) {
+        // Scatter particles in a long deep tunnel
+        positions[i * 3] = (Math.random() - 0.5) * 50; // x
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 50; // y
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 200 - 100; // z (depth)
+
+        const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+        colors[i * 3] = color.r;
+        colors[i * 3 + 1] = color.g;
+        colors[i * 3 + 2] = color.b;
+    }
+
+    // Generate solar systems
+    const solarSystems = Array.from({ length: 60 }).map(() => [
+        (Math.random() - 0.5) * 40, // x
+        (Math.random() - 0.5) * 40, // y
+        (Math.random() - 0.5) * 200 - 100  // z
+    ]);
+
+    useFrame(({ clock }) => {
+        const elapsedTime = clock.getElapsedTime();
+        const speed = 25; // Warp speed!
+        
+        if (groupRef.current) {
+            // Move entire group towards the camera and loop it back
+            groupRef.current.position.z = (elapsedTime * speed) % 100;
+            // Add a slight cinematic spiral roll
+            groupRef.current.rotation.z = elapsedTime * 0.05;
+        }
+    });
+
+    return (
+        <group ref={groupRef}>
+            {/* Colored Galaxy Dust */}
+            <points>
+                <bufferGeometry>
+                    <bufferAttribute attach="attributes-position" count={particleCount} array={positions} itemSize={3} />
+                    <bufferAttribute attach="attributes-color" count={particleCount} array={colors} itemSize={3} />
+                </bufferGeometry>
+                <pointsMaterial size={0.3} vertexColors transparent opacity={0.8} sizeAttenuation blending={THREE.AdditiveBlending} />
+            </points>
+
+            {/* Mini Solar Systems scattered through the infinite galaxy */}
+            {solarSystems.map((pos, i) => (
+                <MiniSolarSystem key={i} position={pos} />
+            ))}
+        </group>
+    );
+};
+
 const SceneCamera = () => {
     useFrame(({ camera, clock }) => {
         const time = clock.getElapsedTime();
@@ -278,6 +405,7 @@ const CinematicBackground = () => {
     const location = useLocation();
     const isProjectsPage = location.pathname === '/projects';
     const isSkillsPage = location.pathname === '/skills';
+    const isCvPage = location.pathname === '/cv' || location.pathname === '/resume';
 
     return (
         <div style={{
@@ -296,7 +424,9 @@ const CinematicBackground = () => {
                 
                 <Stars radius={150} depth={50} count={7000} factor={6} saturation={0.5} fade speed={1} />
                 
-                {isProjectsPage ? (
+                {isCvPage ? (
+                    <InfiniteGalaxy />
+                ) : isProjectsPage ? (
                     <BlackHole />
                 ) : isSkillsPage ? (
                     <>

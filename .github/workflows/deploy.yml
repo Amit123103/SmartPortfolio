@@ -47,6 +47,9 @@ jobs:
         with:
           path: './dist'
           
+      - name: Wait for GitHub Backend
+        run: sleep 15
+          
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

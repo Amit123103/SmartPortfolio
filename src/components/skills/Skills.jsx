@@ -21,6 +21,12 @@ export const skillsData = [
     { name: 'OpenCV', category: 'AI', level: 70 },
     { name: 'TensorFlow', category: 'AI', level: 60 },
     { name: 'C++', category: 'AI', level: 80 },
+    // MLOps
+    { name: 'CI/CD Pipelines', category: 'MLOps', level: 85 },
+    { name: 'Model Serving', category: 'MLOps', level: 80 },
+    { name: 'AIOps', category: 'MLOps', level: 75 },
+    { name: 'MLflow', category: 'MLOps', level: 70 },
+    { name: 'Model Monitoring', category: 'MLOps', level: 70 },
     // Tools
     { name: 'Git & GitHub', category: 'Tools', level: 85 },
     { name: 'Docker', category: 'Tools', level: 80 },
@@ -30,7 +36,7 @@ export const skillsData = [
     { name: 'Kubernetes', category: 'Tools', level: 70 },
 ];
 
-const categories = ['All', 'Frontend', 'Backend', 'AI', 'Tools'];
+const categories = ['All', 'Frontend', 'Backend', 'AI', 'MLOps', 'Tools'];
 
 const Skills = () => {
     const [activeFilter, setActiveFilter] = useState('All');

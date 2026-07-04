@@ -40,7 +40,7 @@ const HumanLayer = () => {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.8, duration: 1 }}
                     >
-                        I am currently pursuing studies in Machine Learning Engineering, focusing on algorithms, data analysis, and model development.
+                        I am currently specializing in MLOps (Machine Learning Operations), focusing on building robust pipelines, model orchestration, and scalable production deployments.
                     </motion.p>
                 </motion.div>
             </section>
@@ -57,11 +57,9 @@ const HumanLayer = () => {
                         // CORE PHILOSOPHY
                     </h2>
                     <p style={{ fontSize: '1.2rem', lineHeight: '1.8', marginBottom: '2rem', color: '#ddd' }}>
-                        I am a Machine Learning Engineering student with a strong interest in building intelligent systems that solve real-world problems. I enjoy working with data, exploring patterns, and transforming insights into practical solutions using modern machine learning techniques.
-
-                        I am continuously learning and improving my skills in programming, data analysis, and model development. I enjoy experimenting with new technologies, collaborating on projects, and applying theoretical knowledge to hands-on applications.
-
-                        With a growth mindset and curiosity-driven approach, I aim to develop impactful, scalable solutions while growing as a skilled and responsible engineer.
+                        I am an AI and MLOps Engineer dedicated to architecting robust, end-to-end machine learning pipelines. While building intelligent models is crucial, my true passion lies in <strong>Machine Learning Operations (MLOps)</strong>—the engineering discipline of deploying, monitoring, and scaling these models in real-world production environments. <br/><br/>
+                        My expertise spans continuous integration and continuous deployment (CI/CD) for ML, automated model retraining, containerization, and infrastructure as code. I focus on creating self-healing architectures that can handle massive data streams, utilizing tools like Docker, Kubernetes, Jenkins, and cloud-native AI services to ensure zero downtime and peak inference latency. <br/><br/>
+                        With a relentless drive for optimization, I don't just build algorithms in isolation; I engineer resilient, enterprise-grade AI ecosystems that reliably deliver intelligence at scale.
                     </p>
                     <p style={{ fontSize: '1.2rem', lineHeight: '1.8', color: '#aaa' }}>
                         But beneath this human exterior lies a digital obsession. <br />

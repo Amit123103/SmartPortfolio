@@ -49,7 +49,7 @@ const Sun = () => {
 
     return (
         <group>
-            <pointLight position={[0, 0, 0]} intensity={2.5} color="#ffddaa" distance={200} decay={1.5} />
+            <pointLight position={[0, 0, 0]} intensity={6} color="#ffffff" distance={300} decay={1.2} />
             <mesh ref={sunRef}>
                 <sphereGeometry args={[2.5, 64, 64]} />
                 <meshBasicMaterial color="#ffaa00" />
@@ -638,7 +638,8 @@ const CinematicBackground = () => {
         }}>
             <Canvas camera={{ position: [0, 10, 30], fov: 45 }}>
                 <SceneCamera isExperiencePage={isExperiencePage} />
-                <ambientLight intensity={0.05} />
+                <ambientLight intensity={isSkillsPage ? 0.4 : 0.05} />
+                {isSkillsPage && <directionalLight position={[10, 20, 10]} intensity={1.5} color="#ffffff" />}
                 
                 <Stars radius={150} depth={50} count={7000} factor={6} saturation={0.5} fade speed={1} />
                 

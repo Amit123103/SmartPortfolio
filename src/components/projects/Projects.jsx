@@ -12,6 +12,18 @@ import musicPlaylistImg from '../../assets/projects/music_playlist.png';
 import livestockManagementImg from '../../assets/projects/livestock_management.png';
 import emotionDetectionImg from '../../assets/projects/emotion_detection.png';
 import handDetectionImg from '../../assets/projects/hand_detection_drawing.png';
+import placementReadyImg from '../../assets/projects/placement_ready_img_1783172861024.png';
+import foodOrderImg from '../../assets/projects/food_order_img_1783172870341.png';
+import imageFinderImg from '../../assets/projects/image_finder_img_1783172881586.png';
+import internhubImg from '../../assets/projects/internhub_img_1783172892144.png';
+import chromeExtImg from '../../assets/projects/chrome_ext_img_1783172902208.png';
+import visionGuardImg from '../../assets/projects/vision_guard_img_1783172912537.png';
+import futureAiImg from '../../assets/projects/future_ai_img_1783172925481.png';
+import faceVoiceAuthImg from '../../assets/projects/face_voice_auth_img_1783172937084.png';
+import devopsImg from '../../assets/projects/devops_img_1783172948129.png';
+import aiopsImg from '../../assets/projects/aiops_img_1783172959643.png';
+import trafficSignImg from '../../assets/projects/traffic_sign_ai_img_1783172970091.png';
+import callerAiImg from '../../assets/projects/caller_ai_img_1783172980451.png';
 
 // Fallback placeholder for missing images
 const placeholderImage = (text) => `https://placehold.co/1200x800/1a1a1a/FFF?text=${encodeURIComponent(text)}`;
@@ -107,7 +119,7 @@ export const projectsData = [
         description: 'A modern DSA, Interview Preparation, Mock Test, Courses, Projects, and Internship Tracking Platform.',
         details: 'Built with Next.js 15, React 19, TypeScript, Firebase, and Tailwind CSS v4. Features comprehensive placement preparation tools including mock tests and internship tracking.',
         date: 'May 2026',
-        image: placeholderImage('PlacementReady'),
+        image: placementReadyImg,
         githubLink: 'https://github.com/Amit123103/Placement-ready',
         liveLink: 'https://amit123103.github.io/Placement-ready/',
         techStack: ['Next.js 15', 'React 19', 'TypeScript', 'Firebase', 'Tailwind CSS'],
@@ -119,7 +131,7 @@ export const projectsData = [
         description: 'Smart QR-based Food Ordering Platform for Ayush Food Junction.',
         details: 'Browse menu, order food online, scan QR, and enjoy a seamless customer experience.',
         date: 'Jun 2026',
-        image: placeholderImage('FoodOrder'),
+        image: foodOrderImg,
         githubLink: 'https://github.com/Amit123103/FoodOrder',
         liveLink: '',
         techStack: ['Next.js', 'MongoDB', 'TailwindCSS'],
@@ -131,7 +143,7 @@ export const projectsData = [
         description: 'Reverse image search and image intelligence system built with Python, FastAPI, and OpenCV.',
         details: 'Performs face detection, EXIF metadata extraction, and perceptual image fingerprinting.',
         date: 'May 2026',
-        image: placeholderImage('ImageFinder'),
+        image: imageFinderImg,
         githubLink: 'https://github.com/Amit123103/find_people',
         liveLink: '',
         techStack: ['Python', 'FastAPI', 'OpenCV', 'Machine Learning'],
@@ -143,7 +155,7 @@ export const projectsData = [
         description: 'AI-powered internship discovery platform built with Expo, React Native, and Supabase.',
         details: 'Designed with a mobile-first experience, it helps students and early-career professionals discover opportunities.',
         date: 'May 2026',
-        image: placeholderImage('InternHub Pro App'),
+        image: internhubImg,
         githubLink: 'https://github.com/Amit123103/Internhub-app',
         liveLink: '',
         techStack: ['React Native', 'Expo', 'Supabase'],
@@ -155,7 +167,7 @@ export const projectsData = [
         description: 'Browser productivity and privacy-focused Chrome extension.',
         details: 'Designed to improve browsing resilience, session recovery, privacy protection, and secure networking using DNS over HTTPS.',
         date: 'May 2026',
-        image: placeholderImage('SecureInvisible Chrome Extension'),
+        image: chromeExtImg,
         githubLink: 'https://github.com/Amit123103/SecureInvisible_Chrome-Extension',
         liveLink: '',
         techStack: ['JavaScript', 'HTML', 'CSS', 'Cybersecurity'],
@@ -167,7 +179,7 @@ export const projectsData = [
         description: 'Production-grade web application powered by YOLOv8 and OpenCV for real-time logo and watermark detection.',
         details: 'Features complete removal, and media enhancement utilizing advanced computer vision deep learning.',
         date: 'May 2026',
-        image: placeholderImage('VisionGuard AI'),
+        image: visionGuardImg,
         githubLink: 'https://github.com/Amit123103/Logo_watermark_detection',
         liveLink: '',
         techStack: ['Python', 'YOLOv8', 'OpenCV', 'Deep Learning'],
@@ -179,7 +191,7 @@ export const projectsData = [
         description: 'Advanced Android AI companion featuring multi-AI engine support.',
         details: 'Includes neural voice interaction, cognitive memory, smart automation, and futuristic device control powered by Gemini.',
         date: 'May 2026',
-        image: placeholderImage('Future AI Assistant'),
+        image: futureAiImg,
         githubLink: 'https://github.com/Amit123103/AI_powered_app_voicecomand',
         liveLink: '',
         techStack: ['Android', 'Java', 'Machine Learning', 'Gemini'],
@@ -191,7 +203,7 @@ export const projectsData = [
         description: 'Enterprise-grade tri-modal biometric authentication platform.',
         details: 'Built using FastAPI, face recognition, voice verification, JWT security, AES-256 encryption, liveness detection, Docker, and Jenkins.',
         date: 'May 2026',
-        image: placeholderImage('FaceVoiceAuth'),
+        image: faceVoiceAuthImg,
         githubLink: 'https://github.com/Amit123103/Face-and-voice-auth',
         liveLink: '',
         techStack: ['Python', 'FastAPI', 'Docker', 'Jenkins', 'Machine Learning'],
@@ -203,7 +215,7 @@ export const projectsData = [
         description: 'End-to-end DevOps Course Practicals.',
         details: 'From Docker Basics to Advanced Jenkins & GitHub Actions Pipelines. Complete with study notes and project files.',
         date: 'May 2026',
-        image: placeholderImage('DevOps Practicals'),
+        image: devopsImg,
         githubLink: 'https://github.com/Amit123103/Devops',
         liveLink: '',
         techStack: ['Docker', 'Jenkins', 'GitHub Actions', 'Maven'],
@@ -215,7 +227,7 @@ export const projectsData = [
         description: 'A Production-Ready AIOps Self-Healing Infrastructure System.',
         details: 'Implements a closed-loop Observe -> Detect -> Decide -> Act -> Learn architecture using Isolation Forests for anomaly detection, NLP for logs.',
         date: 'May 2026',
-        image: placeholderImage('AIOps Self-Healing Infrastructure System'),
+        image: aiopsImg,
         githubLink: 'https://github.com/Amit123103/AIOps_Self-Healing_Infrastructure_System',
         liveLink: '',
         techStack: ['Kubernetes', 'Elasticsearch', 'TensorFlow', 'Grafana', 'Python'],
@@ -227,7 +239,7 @@ export const projectsData = [
         description: 'Production-ready AI-powered Traffic Sign Recognition System.',
         details: 'Uses TensorFlow & MobileNetV2 with real-time webcam detection, video analysis, cyberpunk dark-mode UI, and multilingual support.',
         date: 'Apr 2026',
-        image: placeholderImage('TrafficSign AI'),
+        image: trafficSignImg,
         githubLink: 'https://github.com/Amit123103/Traffic-Sign-AI',
         liveLink: '',
         techStack: ['Python', 'TensorFlow', 'OpenCV', 'Flask', 'Docker'],
@@ -239,7 +251,7 @@ export const projectsData = [
         description: 'AI-powered intelligent voice calling assistant built with NVIDIA Reasoning Models and Twilio Voice API.',
         details: 'Can answer phone calls, understand natural language conversations, and detect intent using speech-to-text and text-to-speech.',
         date: 'Apr 2026',
-        image: placeholderImage('Caller AI Agent'),
+        image: callerAiImg,
         githubLink: 'https://github.com/Amit123103/Caller_AI_Agent',
         liveLink: '',
         techStack: ['Twilio', 'NVIDIA Reasoning', 'DevOps', 'Python'],

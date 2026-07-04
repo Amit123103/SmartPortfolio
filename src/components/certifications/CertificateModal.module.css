@@ -112,3 +112,16 @@
     transform: translateY(-3px);
     box-shadow: 0 10px 20px rgba(230, 36, 41, 0.3);
 }
+@media (max-width: 768px) {
+    .modalContent {
+        width: 95vw !important;
+        max-width: 100% !important;
+        max-height: 90vh !important;
+        padding: 1.5rem !important;
+        border-radius: 15px !important;
+        overflow-y: auto !important;
+    }
+    .header h2 {
+        font-size: 1.5rem !important;
+    }
+}

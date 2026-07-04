@@ -95,3 +95,16 @@
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(46, 191, 145, 0.4);
 }
+@media (max-width: 768px) {
+    .modalContent {
+        width: 95vw !important;
+        max-width: 100% !important;
+        max-height: 90vh !important;
+        padding: 1.5rem !important;
+        border-radius: 15px !important;
+        overflow-y: auto !important;
+    }
+    .header h2 {
+        font-size: 1.5rem !important;
+    }
+}

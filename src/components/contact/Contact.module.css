@@ -191,3 +191,17 @@
     color: #666;
     letter-spacing: 2px;
 }
+@media (max-width: 768px) {
+    .container {
+        padding: 5rem 1rem 2rem 1rem !important;
+        flex-direction: column !important;
+    }
+    .header h1, .title {
+        font-size: 2rem !important;
+    }
+    .contactGrid, .cards {
+        grid-template-columns: 1fr !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+}

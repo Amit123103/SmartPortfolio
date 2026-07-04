@@ -55,3 +55,11 @@
         font-size: 2.2rem;
     }
 }
+@media (max-width: 768px) {
+    .timeline {
+        padding: 2rem 0 !important;
+    }
+    .timeline::before {
+        left: 20px !important;
+    }
+}

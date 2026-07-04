@@ -102,3 +102,11 @@
 .card:hover .glow {
     opacity: 1;
 }
+@media (max-width: 768px) {
+    .card {
+        padding: 1.2rem !important;
+    }
+    .title {
+        font-size: 1.2rem !important;
+    }
+}

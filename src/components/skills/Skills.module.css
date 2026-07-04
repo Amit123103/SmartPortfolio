@@ -70,3 +70,12 @@
     gap: 2rem;
     width: 100%;
 }
+@media (max-width: 768px) {
+    .container {
+        padding: 5rem 1rem 1rem 1rem !important;
+    }
+    .grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+}

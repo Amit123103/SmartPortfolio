@@ -93,3 +93,11 @@
     color: #000;
     box-shadow: 0 0 15px rgba(46, 191, 145, 0.4);
 }
+@media (max-width: 768px) {
+    .card {
+        padding: 1.2rem !important;
+    }
+    .title {
+        font-size: 1.2rem !important;
+    }
+}

@@ -215,3 +215,28 @@
     outline: none;
     border-color: #0ff;
 }
+@media (max-width: 768px) {
+    .container, .homeContainer {
+        padding-top: 6rem !important;
+        flex-direction: column !important;
+        text-align: center !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+    .title, .greeting, .name {
+        font-size: 2.2rem !important;
+        line-height: 1.2 !important;
+    }
+    .subtitle {
+        font-size: 1.2rem !important;
+    }
+    .buttons, .actionContainer {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+    .imageContainer {
+        width: 250px !important;
+        height: 250px !important;
+        margin: 0 auto !important;
+    }
+}

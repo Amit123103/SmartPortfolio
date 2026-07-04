@@ -44,3 +44,11 @@
         font-size: 2.5rem;
     }
 }
+@media (max-width: 768px) {
+    .timeline {
+        padding: 2rem 0 !important;
+    }
+    .timeline::before {
+        left: 20px !important;
+    }
+}

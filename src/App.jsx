@@ -126,10 +126,6 @@ const App = () => {
           <CinematicProvider>
             <AnalyticsProvider>
 
-              {/* Debug Indicator */}
-              <div style={{ position: 'fixed', top: 5, left: 5, zIndex: 9999, color: 'cyan', fontSize: '10px', pointerEvents: 'none' }}>
-                Mode: {introComplete ? 'Main App' : 'Intro Sequence'}
-              </div>
 
               {!introComplete ? (
                 <AnimatePresence>

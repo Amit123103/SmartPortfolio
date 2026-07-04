@@ -101,8 +101,20 @@
         font-size: 2.5rem;
     }
 
+    .title {
+        font-size: 1.1rem;
+    }
+
     .profileWrapper {
         width: 150px;
         height: 150px;
+    }
+
+    .aboutSection {
+        padding: 3rem 1.5rem;
+    }
+
+    .sectionTitle {
+        font-size: 2rem;
     }
 }

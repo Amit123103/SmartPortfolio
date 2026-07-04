@@ -95,10 +95,10 @@ const SceneController = ({ setPhase, onComplete }) => {
         if (!cameraRef.current) return;
 
         // 1. WELCOME SEQUENCE finishes at 2.9s
-        // 2. Open home page 1 second after (at 4s)
+        // 2. Open home page 0.5 seconds after (at 3.4s)
         const t1 = setTimeout(() => {
             onComplete();
-        }, 4000);
+        }, 3400);
 
         return () => {
             clearTimeout(t1);

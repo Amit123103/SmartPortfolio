@@ -81,6 +81,14 @@
     .perceptionGrid {
         grid-template-columns: 1fr;
     }
+
+    .section {
+        padding: 3rem 1rem;
+    }
+
+    .recruiterHud {
+        padding: 1.5rem;
+    }
 }
 
 /* --- Memory Graph --- */

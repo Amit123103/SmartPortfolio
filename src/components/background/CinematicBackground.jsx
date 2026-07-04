@@ -660,6 +660,109 @@ const SceneCamera = ({ isExperiencePage }) => {
     return null;
 };
 
+const ColorfulMeteor = ({ startPos, targetPos, color, duration, delay }) => {
+    const ref = useRef();
+    const tailRef = useRef();
+    
+    useFrame(({ clock }) => {
+        const t = clock.getElapsedTime();
+        if (t < delay) return;
+        
+        const loopT = (t - delay) % duration;
+        const progress = loopT / duration; // 0 to 1
+        
+        if (ref.current && tailRef.current) {
+            ref.current.visible = true;
+            tailRef.current.visible = true;
+            
+            const currentPos = startPos.clone().lerp(targetPos, progress);
+            ref.current.position.copy(currentPos);
+            
+            tailRef.current.position.copy(currentPos);
+            // Orient tail to point perfectly backwards along the path
+            tailRef.current.lookAt(startPos);
+        }
+    });
+
+    return (
+        <group>
+            {/* Meteor Head */}
+            <mesh ref={ref} visible={false}>
+                <sphereGeometry args={[0.3, 16, 16]} />
+                <meshBasicMaterial color="#ffffff" />
+                <pointLight color={color} intensity={3} distance={20} />
+            </mesh>
+            
+            {/* Glowing Fire Tail */}
+            <group ref={tailRef} visible={false}>
+                <mesh rotation={[Math.PI / 2, 0, 0]} position={[0, 0, 3]}>
+                    <coneGeometry args={[0.6, 10, 16]} />
+                    <meshBasicMaterial color={color} transparent opacity={0.85} blending={THREE.AdditiveBlending} depthWrite={false} />
+                </mesh>
+            </group>
+        </group>
+    );
+};
+
+const MeteorShowerSystem = () => {
+    const meteors = React.useMemo(() => {
+        // High intensity neon colors for an amazing colorful shower
+        const colors = ["#ff3355", "#33ff88", "#3388ff", "#ffcc00", "#ff00ff", "#00ffff"];
+        return Array.from({ length: 60 }).map(() => {
+            // Spawn high up and spread across a massive sky area
+            const startPos = new THREE.Vector3(
+                (Math.random() - 0.5) * 200, 
+                50 + Math.random() * 40, 
+                (Math.random() - 0.5) * 150 - 50
+            );
+            // Streak diagonally down towards the bottom-left/forward
+            const targetPos = new THREE.Vector3(
+                startPos.x - 80 - Math.random() * 40,
+                -30 - Math.random() * 20,
+                startPos.z + 60 + Math.random() * 40
+            );
+            return {
+                startPos,
+                targetPos,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                duration: 1.5 + Math.random() * 2.5, // Extremely fast streaks
+                delay: Math.random() * 6 // Random staggered spawns
+            };
+        });
+    }, []);
+
+    return (
+        <group>
+            {meteors.map((m, i) => (
+                <ColorfulMeteor key={i} {...m} />
+            ))}
+        </group>
+    );
+};
+
+const AchievementsBackground = () => {
+    return (
+        <group>
+            {/* Massive Sun Core */}
+            <Sun />
+            
+            {/* Solar System Planets perfectly lit and visible */}
+            <Planet orbitRadius={12} speed={0.25} size={0.8} color="#ff3355" />
+            <Planet orbitRadius={20} speed={0.18} size={1.2} color="#33ff88" />
+            <Planet orbitRadius={28} speed={0.12} size={1.6} color="#aa33ff" />
+            <Planet orbitRadius={38} speed={0.08} size={2.5} color="#2a75bb" />
+            <Planet orbitRadius={50} speed={0.05} size={2.0} color="#ffaa33" />
+
+            {/* Non-stop High Intensity Meteor Shower */}
+            <MeteorShowerSystem />
+            
+            {/* Flawless visibility lighting */}
+            <ambientLight intensity={0.6} />
+            <directionalLight position={[20, 30, 20]} intensity={1.5} color="#ffffff" />
+        </group>
+    );
+};
+
 const Spaceship = ({ startPos, speed, zigzagPhase }) => {
     const ref = useRef();
     
@@ -793,6 +896,7 @@ const CinematicBackground = () => {
     const isCvPage = location.pathname === '/cv' || location.pathname === '/resume';
     const isExperiencePage = location.pathname === '/experience';
     const isCertificationsPage = location.pathname === '/certifications';
+    const isAchievementsPage = location.pathname === '/achievements';
 
     return (
         <div style={{
@@ -807,13 +911,15 @@ const CinematicBackground = () => {
         }}>
             <Canvas camera={{ position: [0, 10, 30], fov: 45 }}>
                 <SceneCamera isExperiencePage={isExperiencePage} />
-                <ambientLight intensity={isSkillsPage || isExperiencePage || isCertificationsPage ? 0.4 : 0.05} />
+                <ambientLight intensity={isSkillsPage || isExperiencePage || isCertificationsPage || isAchievementsPage ? 0.4 : 0.05} />
                 {(isSkillsPage || isExperiencePage) && <directionalLight position={[10, 20, 10]} intensity={1.5} color="#ffffff" />}
                 
                 <Stars radius={150} depth={50} count={7000} factor={6} saturation={0.5} fade speed={1} />
                 
                 {isExperiencePage ? (
                     <SupernovaEvent />
+                ) : isAchievementsPage ? (
+                    <AchievementsBackground />
                 ) : isCvPage ? (
                     <InfiniteMilkyWaySequence />
                 ) : isCertificationsPage ? (

@@ -660,6 +660,131 @@ const SceneCamera = ({ isExperiencePage }) => {
     return null;
 };
 
+const Spaceship = ({ startPos, speed, zigzagPhase }) => {
+    const ref = useRef();
+    
+    useFrame(({ clock }) => {
+        const t = clock.getElapsedTime();
+        if (ref.current) {
+            // Move left to right, reset at boundaries (-100 to 100)
+            const x = ((startPos[0] + t * speed + 100) % 200) - 100; 
+            // Zig zag up and down smoothly
+            const y = startPos[1] + Math.sin(t * 3 + zigzagPhase) * 3;
+            const z = startPos[2];
+            
+            ref.current.position.set(x, y, z);
+            // Tilt the ship dynamically based on zig zag
+            ref.current.rotation.z = Math.sin(t * 3 + zigzagPhase) * -0.3;
+            ref.current.rotation.y = Math.PI / 2; // Face right
+        }
+    });
+
+    return (
+        <group ref={ref}>
+            <mesh rotation={[0, 0, -Math.PI / 2]}>
+                <coneGeometry args={[0.8, 3, 4]} />
+                <meshStandardMaterial color="#88aaff" metalness={0.8} roughness={0.2} />
+            </mesh>
+            <mesh position={[-1, 0.5, 0]}>
+                <boxGeometry args={[1, 0.2, 3]} />
+                <meshStandardMaterial color="#333333" />
+            </mesh>
+            {/* Thruster exhaust glow */}
+            <mesh position={[-1.5, 0, 0]}>
+                <sphereGeometry args={[0.4, 16, 16]} />
+                <meshBasicMaterial color="#ff3300" transparent opacity={0.8} blending={THREE.AdditiveBlending} />
+                <pointLight intensity={3} color="#ff3300" distance={10} decay={2} />
+            </mesh>
+        </group>
+    );
+};
+
+const AlienPlanet = ({ position, size, color, ring }) => {
+    return (
+        <group position={position}>
+            <mesh>
+                <sphereGeometry args={[size, 64, 64]} />
+                <meshStandardMaterial color={color} roughness={0.6} metalness={0.3} />
+            </mesh>
+            {ring && (
+                <mesh rotation={[Math.PI / 2.5, 0, 0]}>
+                    <ringGeometry args={[size * 1.5, size * 2.2, 64]} />
+                    <meshStandardMaterial color={color} transparent opacity={0.7} side={THREE.DoubleSide} />
+                </mesh>
+            )}
+        </group>
+    );
+};
+
+const AlienMountains = () => {
+    const groupRef = useRef();
+    
+    // Generate terrain
+    const geometry = React.useMemo(() => {
+        const geo = new THREE.PlaneGeometry(250, 200, 128, 128); // Huge plane
+        geo.rotateX(-Math.PI / 2); // Lay flat
+        const pos = geo.attributes.position;
+        for (let i = 0; i < pos.count; i++) {
+            const x = pos.getX(i);
+            const z = pos.getZ(i);
+            // Alien rocky terrain combining two frequencies
+            const y = Math.sin(x * 0.1) * Math.cos(z * 0.1) * 4 + 
+                      Math.sin(x * 0.02) * Math.cos(z * 0.02) * 15;
+            pos.setY(i, y);
+        }
+        geo.computeVertexNormals();
+        return geo;
+    }, []);
+
+    useFrame(({ clock }) => {
+        const t = clock.getElapsedTime();
+        if (groupRef.current) {
+            // Scroll terrain towards camera
+            // Wavelength of 0.1 frequency is 20*PI (~62.83). Modulo by this creates a seamless loop!
+            const wavelength = 62.8318530718 * 2;
+            groupRef.current.position.z = -100 + (t * 8) % wavelength; 
+        }
+    });
+
+    return (
+        <group ref={groupRef} position={[0, -15, -100]}>
+            <mesh geometry={geometry}>
+                <meshStandardMaterial color="#1a0b2e" roughness={0.9} metalness={0.2} />
+            </mesh>
+            {/* Wireframe overlay for synthwave alien vibe */}
+            <mesh geometry={geometry} position={[0, 0.1, 0]}>
+                <meshBasicMaterial color="#ff00a0" wireframe={true} transparent opacity={0.15} />
+            </mesh>
+        </group>
+    );
+};
+
+const AlienLandscape = () => {
+    return (
+        <group>
+            {/* Giant Planets in the sky */}
+            <AlienPlanet position={[-40, 30, -120]} size={25} color="#ff3355" ring={true} />
+            <AlienPlanet position={[50, 45, -150]} size={18} color="#33aaff" ring={false} />
+            <AlienPlanet position={[15, 20, -80]} size={5} color="#ffff55" ring={false} />
+
+            {/* Scrolling Mountains */}
+            <AlienMountains />
+
+            {/* Zig Zag Spaceships crossing left to right */}
+            <Spaceship startPos={[-80, 5, -20]} speed={15} zigzagPhase={0} />
+            <Spaceship startPos={[-60, 12, -40]} speed={25} zigzagPhase={Math.PI / 2} />
+            <Spaceship startPos={[-120, 18, -60]} speed={18} zigzagPhase={Math.PI} />
+            <Spaceship startPos={[-40, 8, -30]} speed={30} zigzagPhase={Math.PI / 1.5} />
+            <Spaceship startPos={[-150, 25, -80]} speed={22} zigzagPhase={Math.PI * 1.2} />
+            
+            {/* Ambient lighting to make everything perfectly visible */}
+            <ambientLight intensity={0.7} />
+            <directionalLight position={[-20, 30, 20]} intensity={2} color="#ffccff" />
+            <pointLight position={[40, 50, -100]} intensity={5} color="#ffaa55" distance={300} decay={1.5} />
+        </group>
+    );
+};
+
 const CinematicBackground = () => {
     // Determine the current route
     const location = useLocation();
@@ -667,6 +792,7 @@ const CinematicBackground = () => {
     const isSkillsPage = location.pathname === '/skills';
     const isCvPage = location.pathname === '/cv' || location.pathname === '/resume';
     const isExperiencePage = location.pathname === '/experience';
+    const isCertificationsPage = location.pathname === '/certifications';
 
     return (
         <div style={{
@@ -681,7 +807,7 @@ const CinematicBackground = () => {
         }}>
             <Canvas camera={{ position: [0, 10, 30], fov: 45 }}>
                 <SceneCamera isExperiencePage={isExperiencePage} />
-                <ambientLight intensity={isSkillsPage || isExperiencePage ? 0.4 : 0.05} />
+                <ambientLight intensity={isSkillsPage || isExperiencePage || isCertificationsPage ? 0.4 : 0.05} />
                 {(isSkillsPage || isExperiencePage) && <directionalLight position={[10, 20, 10]} intensity={1.5} color="#ffffff" />}
                 
                 <Stars radius={150} depth={50} count={7000} factor={6} saturation={0.5} fade speed={1} />
@@ -690,6 +816,8 @@ const CinematicBackground = () => {
                     <SupernovaEvent />
                 ) : isCvPage ? (
                     <InfiniteMilkyWaySequence />
+                ) : isCertificationsPage ? (
+                    <AlienLandscape />
                 ) : isProjectsPage ? (
                     <BlackHole />
                 ) : isSkillsPage ? (

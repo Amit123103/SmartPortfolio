@@ -94,48 +94,16 @@ const SceneController = ({ setPhase, onComplete }) => {
     useEffect(() => {
         if (!cameraRef.current) return;
 
-        const cam = cameraRef.current;
-
-        // --- SEQUENCE TIMELINE ---
-
-        // 1. COSMIC STEP 1: FOCUS LOCK (Start to 2s)
-        // Already positioned at [0, 20, 40], looking at [0,0,0]
-
-        // 2. COSMIC STEP 2: ORBITAL DESCENT (2s to 6s)
-        // 1. WELCOME SEQUENCE (0-4s)
-
-        // 2. COSMIC STEP 2: ORBITAL DESCENT (4s to 8s)
+        // 1. WELCOME SEQUENCE finishes at 2.9s
+        // 2. Open home page 1 second after (at 4s)
         const t1 = setTimeout(() => {
-            setPhase('DESCENT');
-            gsap.to(cam.position, {
-                x: 0, y: 5, z: 18, // Move closer to Earth
-                duration: 4,
-                ease: "power2.inOut"
-            });
-        }, 4000);
-
-        // 3. COSMIC STEP 3: DIGITAL TRANSFORMATION (8s)
-        const t2 = setTimeout(() => {
-            setPhase('DIGITAL');
-        }, 8000);
-
-        // 4. COSMIC STEP 4: IDENTITY EMERGENCE (9s)
-        const t3 = setTimeout(() => {
-            setPhase('IDENTITY');
-        }, 9000);
-
-        // 5. COSMIC STEP 6: TRANSITION TO HOME (14s via onComplete)
-        const t4 = setTimeout(() => {
             onComplete();
-        }, 14000);
+        }, 4000);
 
         return () => {
             clearTimeout(t1);
-            clearTimeout(t2);
-            clearTimeout(t3);
-            clearTimeout(t4);
         };
-    }, []);
+    }, [onComplete]);
 
     return (
         <PerspectiveCamera makeDefault ref={cameraRef} position={[0, 20, 60]} fov={45} />
